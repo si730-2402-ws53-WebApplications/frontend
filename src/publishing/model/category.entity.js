@@ -1,6 +1,9 @@
 export class Category {
-    constructor({id = '', name = '' }) {
+    constructor({ id = '', nombre = '', almacen = '', categoria = '', cantidad = 0 }) {
         this.id = id;
-        this.name = name;
+        this.nombre = nombre;
+        this.almacen = almacen;
+        this.categoria = categoria;
+        this.cantidad = cantidad;
     }
 }

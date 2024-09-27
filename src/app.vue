@@ -30,7 +30,7 @@ export default {
   <header>
     <pv-toolbar class="dark-toolbar">
       <template #start>
-        <pv-button class="p-button-text hamburger-menu" icon="pi pi-bars" @click="toggleDrawer"/>
+        <pv-button class="p-button-text" icon="pi pi-bars" @click="toggleDrawer"/>
         <h3 class="title-color">TelaSecure</h3>
       </template>
       <template #center>
@@ -68,15 +68,15 @@ export default {
 <style scoped>
 /* Estilo para el toolbar azul oscuro */
 .dark-toolbar {
-  background-color: #213159; /* Azul oscuro */
-  color: #e6e6e6; /* Color de texto blanco */
+  background-color: #003366; /* Azul oscuro */
+  color: white; /* Color de texto blanco */
 }
 
 /* Estilo para los botones del toolbar sin borde */
 .no-border {
   border: none; /* Elimina el borde de los botones */
   background: none; /* Elimina el fondo del botón */
-  color: #a3a3a3; /* Asegura que el texto sea blanco */
+  color: white; /* Asegura que el texto sea blanco */
 }
 
 
@@ -95,14 +95,6 @@ export default {
 }
 
 .drawer-link:hover {
-  background-color: #000000; /* Color de fondo al pasar el ratón */
-}
-
-.hamburger-menu {
-  color: #000000; /* Cambia este valor al color que desees */
-}
-
-.hamburger-menu:hover {
-  color: #5a5a5a; /* Cambia este valor al color que desees para el hover */
+  background-color: #e6e6e6; /* Color de fondo al pasar el ratón */
 }
 </style>

@@ -1,14 +1,10 @@
 import http from "../../shared/services/http-common.js";
-import axios from 'axios';
-
-
 
 export class CategoryService {
-
-    resourceEndpoint = '/db.json';
+    resourceEndpoint = '/categories';
 
     getAll() {
-        return axios.get(this.resourceEndpoint).then(response => response.data.telas); // Asegúrate de leer solo la sección 'telas'
+        return http.get(this.resourceEndpoint);
     }
 
     getById(id) {

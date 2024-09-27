@@ -3,8 +3,35 @@
   "categories": [
     {
       "id": 1,
-      "name": "Category 1"
+      "codigo": "A001",
+      "nombre": "Tela Algodón",
+      "almacen": "Almacén Central",
+      "categoria": "Algodón",
+      "cantidad": 120
+    },
+    {
+      "id": 2,
+      "codigo": "A002",
+      "nombre": "Tela Poliéster",
+      "almacen": "Almacén Norte",
+      "categoria": "Poliéster",
+      "cantidad": 80
+    },
+    {
+      "id": 3,
+      "codigo": "A003",
+      "nombre": "Tela Lino",
+      "almacen": "Almacén Sur",
+      "categoria": "Lino",
+      "cantidad": 50
+    },
+    {
+      "id": 4,
+      "codigo": "A004",
+      "nombre": "Tela Seda",
+      "almacen": "Almacén Este",
+      "categoria": "Seda",
+      "cantidad": 30
     }
   ]
 }
-
