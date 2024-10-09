@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import HomeComponent from "../public/pages/home.component.vue";
 import AboutComponent from "../public/pages/about.component.vue";
 import CategoryManagementComponent from "../publishing/pages/category-management.component.vue";
+import TemperatureComponent from '../temperature/components/temperature.component.vue'; // Importa el componente de temperatura
 
 const router = createRouter({
     history: createWebHistory(),
@@ -9,6 +10,7 @@ const router = createRouter({
         { path: '/home',                    name: 'home',       component: HomeComponent,               meta: { title: 'Home'} },
         { path: '/about',                   name: 'about',      component: AboutComponent,              meta: { title: 'About us'} },
         { path: '/publishing/categories',   name: 'categories', component: CategoryManagementComponent, meta: { title: 'Categories'}},
+        { path: '/temperature', name: 'temperature', component: TemperatureComponent, meta: { title: 'Temperature' } }, // Agrega esta línea
         { path: '/',                        redirect: '/home' }
     ]
 });

@@ -13,6 +13,7 @@ export default {
         { label: 'Reportes y análisis', to: '/reportes-y-analisis' },
         { label: 'Inventario', to: '/publishing/categories' },
         { label: 'Mantenimiento y soporte', to: '/mantenimiento-y-soporte' },
+        { label: 'Temperature', to: '/temperature' },
       ]
     }
   },
