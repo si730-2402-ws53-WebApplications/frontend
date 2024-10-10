@@ -28,6 +28,12 @@ body {
   place-items: start;
   min-width: 320px;
   min-height: 100vh;
+
+}
+
+*{
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -59,10 +65,8 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  width: 100%;
 }
 
 @media (prefers-color-scheme: light) {
@@ -76,4 +80,21 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.dark-toolbar{
+  background-color: #213159 !important;
+  border-radius: 0px !important;
+  width: 100% !important;
+  border: none !important;
+}
+
+.telasecure-logo{
+  width: 2rem;
+  margin-right: 0.5rem;
+}
+
+.drawer-telasecure{
+  background-color: black !important;
+  border: none !important;
 }

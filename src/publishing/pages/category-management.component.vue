@@ -161,4 +161,9 @@ export default {
 </template>
 
 <style scoped>
+
+.w-full{
+  padding: 3rem;
+}
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="temperature-container">
     <div class="cards-container">
       <div class="card">
         <h3>Termómetro 01</h3>
@@ -140,4 +140,9 @@ export default {
   background-color: #ff0000;
   border-radius: 5px;
 }
+
+.temperature-container{
+  padding: 3rem;
+}
+
 </style>
