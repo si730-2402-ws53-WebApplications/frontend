@@ -9,11 +9,10 @@ export default {
     return {
       drawer: false,
       items: [
-        { label: 'Control Ambiental', to: '/control-ambiental' },
-        { label: 'Reportes y análisis', to: '/reportes-y-analisis' },
         { label: 'Inventario', to: '/publishing/categories' },
-        { label: 'Mantenimiento y soporte', to: '/mantenimiento-y-soporte' },
         { label: 'Temperature', to: '/temperature' },
+        { label: 'Reportes y análisis', to: '/reportes-y-analisis' },
+        { label: 'Mantenimiento y soporte', to: '/mantenimiento-y-soporte' },
       ]
     }
   },
@@ -47,11 +46,6 @@ export default {
         </div>
       </template>-->
       <template #end>
-        <div id="search-container" class="toolbar-icon">
-          <pv-button id="search-icon"><i class="pi pi-search"></i></pv-button>
-          <input type="text" class="search-input">
-        </div>
-        <pv-button class="toolbar-icon" id="notification-icon"><i class="pi pi-bell"></i></pv-button>
         <pv-button class="toolbar-icon" id="user-icon"><i class="pi pi-user"></i></pv-button>
         <language-switcher/>
       </template>
@@ -122,6 +116,7 @@ export default {
   background-color: black;
   border-color: black;
   text-align: left;
+  color:white;
 }
 
 .drawer-button:hover{
@@ -130,26 +125,7 @@ export default {
   color: #003366 !important;
 }
 
-/*search stuff*/
-#search-container{
-  background-color: white;
-  border-radius: 5px;
-  padding: 0px 10px 0px 0px;
-}
-
-#search-icon{
-  background-color: transparent;
-  border: none;
-  color: black;
-}
-
-.search-input{
-  border: none;
-}
-
-/*icons */
-
-#notification-icon, #bars-icon{
+#bars-icon{
   background-color: transparent;
   border: none;
 }
