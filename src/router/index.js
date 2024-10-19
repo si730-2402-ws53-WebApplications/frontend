@@ -8,7 +8,6 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/home',                    name: 'home',       component: HomeComponent,               meta: { title: 'Home'} },
-        { path: '/about',                   name: 'about',      component: AboutComponent,              meta: { title: 'About us'} },
         { path: '/publishing/categories',   name: 'categories', component: CategoryManagementComponent, meta: { title: 'Categories'}},
         { path: '/temperature', name: 'temperature', component: TemperatureComponent, meta: { title: 'Temperature' } }, // Agrega esta línea
         { path: '/',                        redirect: '/home' }
