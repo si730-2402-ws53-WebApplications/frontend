@@ -1,3 +1,14 @@
 {
-
+  "inventory": {
+    "title": "Inventory",
+    "add": "Add Fabric",
+    "edit": "Edit Fabric",
+    "delete": "Delete Fabric",
+    "export": "Export",
+    "name": "Name",
+    "storeroom": "Storeroom",
+    "category": "Category",
+    "manage": "Manage Fabrics",
+    "quantity": "Quantity"
+  }
 }

@@ -36,28 +36,28 @@ export default {
       <div class="p-fluid">
         <div class="field mt-5">
           <pv-float-label>
-            <label for="name">Nombre</label>
+            <label for="name">{{$t('inventory.name')}}</label>
             <pv-input-text id="name" v-model="item.nombre"
                            :class="{'p-invalid': submitted && !item.nombre }"/>
           </pv-float-label>
         </div>
         <div class="field mt-5">
           <pv-float-label>
-            <label for="almacen">Almacén</label>
+            <label for="almacen">{{$t('inventory.storeroom')}}</label>
             <pv-input-text id="almacen" v-model="item.almacen"
                            :class="{'p-invalid': submitted && !item.almacen }"/>
           </pv-float-label>
         </div>
         <div class="field mt-5">
           <pv-float-label>
-            <label for="categoria">Categoría</label>
+            <label for="categoria">{{$t('inventory.category')}}</label>
             <pv-input-text id="categoria" v-model="item.categoria"
                            :class="{'p-invalid': submitted && !item.categoria }"/>
           </pv-float-label>
         </div>
         <div class="field mt-5">
           <pv-float-label>
-            <label for="cantidad">Cantidad</label>
+            <label for="cantidad">{{$t('inventory.quantity')}}</label>
             <pv-input-text id="cantidad" v-model.number="item.cantidad"
                            :class="{'p-invalid': submitted && item.cantidad < 0}"/>
           </pv-float-label>
