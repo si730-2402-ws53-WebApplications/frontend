@@ -1,3 +1,14 @@
 {
-
+  "inventory": {
+    "title": "Inventario",
+    "add": "Agregar Tela",
+    "edit": "Editar Tela",
+    "delete": "Eliminar Tela",
+    "export": "Exportar",
+    "name": "Nombre",
+    "storeroom": "Almacén",
+    "category": "Categoria",
+    "manage": "Gestionar Telas",
+    "quantity": "Cantidad"
+  }
 }

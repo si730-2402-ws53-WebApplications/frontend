@@ -9,10 +9,10 @@ export default {
     return {
       drawer: false,
       items: [
-        { label: 'Inventario', to: '/publishing/categories' },
-        { label: 'Temperature', to: '/temperature' },
-        { label: 'Reportes y análisis', to: '/reportes-y-analisis' },
-        { label: 'Mantenimiento y soporte', to: '/mantenimiento-y-soporte' },
+        { label: 'Inventory', to: '/publishing/categories', icon: 'folder' },
+        { label: 'Temperature', to: '/temperature' ,icon: 'sun'},
+        { label: 'Reports', to: '/reportes-y-analisis', icon: 'chart-line' },
+        { label: 'Maintenance', to: '/mantenimiento-y-soporte', icon: 'cog' },
       ]
     }
   },
@@ -62,7 +62,7 @@ export default {
                      :key="item.label"
                      v-slot="{ navigate, href }"
                      :to="item.to" custom>
-          <pv-button class="drawer-button" :href="href" @click="navigate">{{item.label}}</pv-button>
+          <pv-button class="drawer-button" :href="href" @click="navigate"><a :class="`pi pi-${item.icon}`"></a>{{item.label}}</pv-button>
         </router-link>
       </div>
     </pv-drawer>
@@ -117,6 +117,8 @@ export default {
   border-color: black;
   text-align: left;
   color:white;
+  display: flex;
+  justify-content: left;
 }
 
 .drawer-button:hover{

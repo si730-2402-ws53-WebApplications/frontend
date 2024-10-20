@@ -45,7 +45,7 @@ export default {
   components: { CategoryCreateAndEditDialog, DataManager },
   data() {
     return {
-      title: { singular: "Category", plural: "Categories" },
+      title: { singular: "Fabric", plural: "Fabrics" },
       categories: [],
       category: new Category({}),
       selectedCategories: [],
@@ -53,6 +53,7 @@ export default {
       createAndEditDialogIsVisible: false,
       isEdit: false,
       submitted: false
+
     };
   },
   methods: {
@@ -134,6 +135,7 @@ export default {
 
 <template>
   <div class="w-full">
+    <h3>{{ $t('inventory.manage') }}</h3>
     <data-manager
         :title="title"
         v-bind:items="categories"
@@ -144,10 +146,10 @@ export default {
     >
       <template #custom-columns>
         <pv-column :sortable="true" field="id" header="ID" style="min-width: 12rem" />
-        <pv-column :sortable="true" field="nombre" header="Nombre" style="min-width: 24rem" />
-        <pv-column :sortable="true" field="almacen" header="Almacén" style="min-width: 24rem" />
-        <pv-column :sortable="true" field="categoria" header="Categoría" style="min-width: 24rem" />
-        <pv-column :sortable="true" field="cantidad" header="Cantidad" style="min-width: 24rem" />
+        <pv-column :sortable="true" field="nombre" :header="$t('inventory.name')" style="min-width: 24rem" />
+        <pv-column :sortable="true" field="almacen" :header="$t('inventory.storeroom')" style="min-width: 24rem" />
+        <pv-column :sortable="true" field="categoria" :header="$t('inventory.category')" style="min-width: 24rem" />
+        <pv-column :sortable="true" field="cantidad" :header="$t('inventory.quantity')" style="min-width: 24rem" />
       </template>
     </data-manager>
     <category-create-and-edit-dialog

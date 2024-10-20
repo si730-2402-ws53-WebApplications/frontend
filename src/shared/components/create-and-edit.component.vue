@@ -4,16 +4,13 @@ const defaultStyle = {width: '400px'};
 
 export default {
   name: "create-and-edit",
-  props: {entity: null, visible: Boolean, entityName: '', edit: Boolean, size: 'default'},
+  props: {entity: null, visible: Boolean, edit: Boolean, size: 'default'},
   methods: {
     onCancel() {
       this.$emit('cancel-requested');
     },
     onSave() {
       this.$emit('save-requested', this.entity);
-    },
-    getHeaderTitle() {
-      return `${this.edit ? 'Edit' : 'New'} ${this.entityName}`;
     },
     getSubmitLabel() {
       return this.edit ? 'Update' : 'Create';
@@ -30,11 +27,9 @@ export default {
 
 <template>
   <pv-dialog v-bind:visible="visible" :modal="true" :style="getDialogStyle" class="p-fluid"
-             :header="entityName">
+             >
     <template #header>
-      <div class="flex justify-content-start">
-        <div>{{ getHeaderTitle }}</div>
-      </div>
+      <h3>TelaSecure</h3>
     </template>
     <slot name="content"></slot>
     <template #footer>
@@ -50,5 +45,6 @@ export default {
 </template>
 
 <style scoped>
+
 
 </style>

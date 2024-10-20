@@ -63,16 +63,16 @@ export default {
 </script>
 
 <template>
-  <h3>Manage {{ title.plural }}</h3>
+  <br>
   <!-- Toolbar Section -->
   <pv-toolbar class="mb-4">
     <template #start>
-      <pv-button class="mr-2" icon="pi pi-plus" label="New" severity="success" @click="newItem"/>
-      <pv-button :disabled="!selectedItems || !selectedItems.length" icon="pi pi-trash" label="Delete"
+      <pv-button class="mr-2" icon="pi pi-plus" :label="$t('inventory.add')" severity="success" @click="newItem"/>
+      <pv-button :disabled="!selectedItems || !selectedItems.length" icon="pi pi-trash" :label="$t('inventory.delete')"
                  severity="danger" @click="confirmDeleteSelected"/>
     </template>
     <template #end>
-      <pv-button icon="pi pi-download" label="Export" severity="help" @click="exportToCsv"/>
+      <pv-button icon="pi pi-download" :label="$t('inventory.export')" severity="help" @click="exportToCsv"/>
     </template>
   </pv-toolbar>
   <!-- Data Table Section -->
@@ -102,5 +102,6 @@ export default {
 </template>
 
 <style scoped>
+
 
 </style>
