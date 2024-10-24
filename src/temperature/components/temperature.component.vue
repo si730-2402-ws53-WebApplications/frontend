@@ -1,72 +1,209 @@
-<template>
-  <div class="temperature-container">
-    <div class="cards-container">
-      <div class="card">
-        <h3>Termómetro 01</h3>
-        <!-- Tarjeta de temperatura actual -->
-        <div>
-          <h2>Temperatura en tiempo real</h2>
-          <div class="temperature-card">
-            <p>{{ temperature }}°C</p>
-          </div>
-          <p>Máxima temperatura: 100°C</p>
-          <p>Mínima temperatura: 16°C</p>
-        </div>
-        <!-- Control de temperatura -->
-        <div>
-          <h2>Control de temperatura</h2>
-          <input type="range" v-model="temperature" min="16" max="100" />
-          <p>Temperatura: {{ temperature }}°C</p>
-          <div class="termometro">
-            <div class="mercurio" :style="{ height: `${(temperature - 16) / (100 - 16) * 100}%` }"></div>
-          </div>
-          <button @click="increaseTemperature">+</button>
-          <button @click="decreaseTemperature">-</button>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Higrómetro 01</h3>
-        <!-- Tarjeta de humedad actual -->
-        <div class="humidity-card">
-          <h2>Humedad en tiempo real</h2>
-          <div class="humidity-display">
-            <p>Humedad Actual: {{ humidity.toFixed(2) }}%</p>
-            <div :style="{ width: humidity + '%' }" class="humidity-bar"></div>
-          </div>
-        </div>
-        <!-- Alerta de humedad alta -->
-        <div v-if="alert" class="alert">¡Alerta! Humedad alta: {{ humidity.toFixed(2) }}%</div>
-        <!-- Botón para actualizar humedad -->
-        <button @click="checkHumidity">Actualizar Humedad</button>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
+import {Storeroom} from '../model/storeroom.entity.js';
+import {StoreroomService} from "../services/storeroom.service.js";
+
+import {Thermometer} from "../model/thermometer.entity.js";
+import {ThermometerService} from "../services/thermometer.service.js";
+
+import {Hygrometer} from "../model/hygrometer.entity.js";
+import {HygrometerService} from "../services/hygrometer.service.js";
+
+import {Heater} from "../model/heater.entity.js";
+import {HeaterService} from "../services/heater.service.js";
+
+import {Humidifier} from "../model/humidifier.entity.js";
+import {HumidifierService} from "../services/humidifier.service.js";
+
 export default {
   data() {
     return {
+      storerooms: [],
+      storeroomService: null,
+      thermometers: [],
+      thermometerService: null,
+      hygrometers: [],
+      hygrometerService: null,
+      heaters: [],
+      heaterService: null,
+      humidifiers: [],
+      humidifierService: null,
       temperature: 16,
       humidity: 50,
       alert: false,
     };
   },
   methods: {
-    increaseTemperature() {
-      this.temperature = Math.min(this.temperature + 1, 100);
+    setHeaterTemperature(heater, temperature) {
+      heater.temperature = temperature;
+      this.heaterService.update(heater.id, heater)
+          .then(response => {
+            console.log('Heater updated:', response.data);
+          })
+          .catch(error => {
+            console.error('Error updating heater:', error);
+          });
     },
-    decreaseTemperature() {
-      this.temperature = Math.max(this.temperature - 1, 16);
+    setStoreroomTemperature(heater, storeroom) {
+      storeroom.temperatura.actual = heater.temperature;
+      this.storeroomService.update(storeroom.id, storeroom)
+          .then(response => {
+            console.log('Storeroom updated:', response.data);
+          })
+          .catch(error => {
+            console.error('Error updating storeroom:', error);
+          });
     },
-    checkHumidity() {
-      // Lógica para obtener datos del sensor
-      this.humidity = Math.random() * 100; // Simulación de lectura
-      this.alert = this.humidity > 70; // Umbral de alerta
+    updateHeaterInDatabase(heater) {
+      // Llama al servicio del calentador para actualizar la base de datos
+      this.heaterService.update(heater.id, { temperature: heater.temperature })
+          .then(response => {
+            console.log("Heater updated successfully", response.data);
+          })
+          .catch(error => {
+            console.error("Error updating heater", error);
+          });
     },
+    updateStoreroomInDatabase(storeroom) {
+      // Llama al servicio del almacén para actualizar la base de datos
+      this.storeroomService.update(storeroom.id, { temperatura: storeroom.temperatura })
+          .then(response => {
+            console.log("Storeroom updated successfully", response.data);
+          })
+          .catch(error => {
+            console.error("Error updating storeroom", error);
+          });
+    }
   },
+  created() {
+    //storerooms
+    this.storeroomService = new StoreroomService();
+    this.storeroomService.getAll().then(response => {
+      this.storerooms = response.data.map(storeroom => new Storeroom(storeroom));
+      console.log(this.storerooms);
+    }).catch(error => console.error(error));
+
+    //thermometers
+    this.thermometerService = new ThermometerService();
+    this.thermometerService.getAll().then(response => {
+      this.thermometers = response.data.map(thermometer => new Thermometer(thermometer));
+      console.log(this.thermometers);
+    }).catch(error => console.error(error));
+
+    //hygrometers
+    this.hygrometerService = new HygrometerService();
+    this.hygrometerService.getAll().then(response => {
+      this.hygrometers = response.data.map(hygrometer => new Hygrometer(hygrometer));
+      console.log(this.hygrometers);
+    }).catch(error => console.error(error));
+
+    //heaters
+    this.heaterService = new HeaterService();
+    this.heaterService.getAll().then(response => {
+      this.heaters = response.data.map(heater => new Heater(heater));
+      console.log(this.heaters);
+    }).catch(error => console.error(error));
+
+    //humidifiers
+    this.humidifierService = new HumidifierService();
+    this.humidifierService.getAll().then(response => {
+      this.humidifiers = response.data.map(humidifier => new Humidifier(humidifier));
+      console.log(this.humidifiers);
+    }).catch(error => console.error(error));
+  }
 };
 </script>
+
+
+<template>
+  <div v-for="storeroom in storerooms" :key="storeroom.id">
+    <h2>{{ storeroom.nombre }}</h2>
+    <p>{{ storeroom.temperatura.actual }}</p>
+    <p>{{ storeroom.humedad.actual }}</p>
+
+    <div class="iot-container">
+      <!--termometros-->
+      <div v-for="thermometer in thermometers" :key="thermometer.id">
+        <!-- Tarjeta de termometro actual -->
+        <div class="card" v-if="thermometer.storeroom == storeroom.id">
+          <h3>{{thermometer.name}}</h3>
+          <div class="humidity-card">
+            <div class="temperature-display">
+              <div class="termometro">
+                <div class="mercurio" :style="{ height: `${(storeroom.temperatura.actual) / (100) * 100}%` }"></div>
+              </div>
+              <div class="temperature-card">
+                <p>{{ storeroom.temperatura.actual }}°C</p>
+              </div>
+            </div>
+          </div>
+          <!-- Alerta de temperatura alta-->
+          <div v-if="storeroom.temperatura.actual < storeroom.temperatura.minima" class="alert">¡Alerta! Temperatura baja: {{ storeroom.temperatura.actual }}°C</div>
+          <div v-if="storeroom.temperatura.actual > storeroom.temperatura.maxima" class="alert">¡Alerta! Temperatura alta: {{ storeroom.temperatura.actual }}°C</div>
+        </div>
+      </div>
+
+      <!--higrometros-->
+      <div v-for="hygrometer in hygrometers" :key="hygrometer.id">
+        <!-- Tarjeta de humedad actual -->
+        <div class="card" v-if="hygrometer.storeroom == storeroom.id">
+          <h3>{{hygrometer.name}}</h3>
+          <div class="humidity-card">
+            <div class="humidity-display">
+              <div class="temperature-card">
+                <p>{{ storeroom.humedad.actual }}%</p>
+              </div>
+              <div :style="{ width: storeroom.humedad.actual + '%' }" class="humidity-bar"></div>
+            </div>
+          </div>
+          <!-- Alerta de humedad alta-->
+          <div v-if="storeroom.humedad.actual < storeroom.humedad.minima" class="alert">¡Alerta! Humedad baja: {{ storeroom.humedad.actual }}°C</div>
+          <div v-if="storeroom.humedad.actual > storeroom.humedad.maxima" class="alert">¡Alerta! Humedad alta: {{ storeroom.humedad.actual }}°C</div>
+        </div>
+      </div>
+
+      <!--heater o calentador-->
+      <div v-for="heater in heaters" :key="heater.id">
+        <div class="card" v-if="heater.storeroom == storeroom.id">
+          <h3>{{heater.name}}</h3>
+          <div class="humidity-card">
+            <div class="humidity-display">
+              <div class="temperature-card">
+                <p>{{ heater.temperature }}°C</p>
+              </div>
+              <input type="range" v-model="heater.temperature" min="0" max="100" />
+            </div>
+          </div>
+          <div class="card-footer">
+            <button @click="setStoreroomTemperature(heater, storeroom)">Set Temperature</button>
+            <button @click="setHeaterTemperature(heater, storeroom.temperatura.actual)">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!--humidifier-->
+      <div v-for="humidifier in humidifiers" :key="humidifier.id">
+        <div class="card" v-if="humidifier.storeroom == storeroom.id">
+          <h3>{{humidifier.name}}</h3>
+          <div class="humidity-card">
+            <div class="humidity-display">
+              <div class="temperature-card">
+                <p>{{ humidifier.humidity }}%</p>
+              </div>
+              <input type="range" v-model="humidifier.humidity" min="0" max="100" />
+            </div>
+          </div>
+          <div class="card-footer">
+            <button>Set Humidity</button>
+            <button>Reset</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</template>
 
 <style>
 .cards-container {
@@ -84,6 +221,7 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 5px 10px;
   width: 300px;
+  color: #1a1a1a;
 }
 
 /* Tarjeta anidada de temperatura actual */
@@ -143,6 +281,22 @@ export default {
 
 .temperature-container{
   padding: 3rem;
+}
+
+.temperature-display{
+  display: flex;
+}
+
+.iot-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-footer{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
 }
 
 </style>
