@@ -10,5 +10,14 @@
     "category": "Categoria",
     "manage": "Gestionar Telas",
     "quantity": "Cantidad"
+  },
+
+  "report": {
+    "analysis": "Reportes y Análisis",
+    "byWarehouse": "Informes por almacén",
+    "irregularities": "Irregularidades",
+    "trends": "Tendencias",
+    "resourceOptimization": "Optimización de recursos",
+    "optimizationAnalysis": "Análisis de la eficiencia del uso del espacio y la rotación de inventario"
   }
 }
