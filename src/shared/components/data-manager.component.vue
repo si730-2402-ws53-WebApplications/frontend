@@ -70,6 +70,8 @@ export default {
       <pv-button class="mr-2" icon="pi pi-plus" :label="$t('inventory.add')" severity="success" @click="newItem"/>
       <pv-button :disabled="!selectedItems || !selectedItems.length" icon="pi pi-trash" :label="$t('inventory.delete')"
                  severity="danger" @click="confirmDeleteSelected"/>
+      <pv-button class="mr-2" id="createCategory" icon="pi pi-plus" label="Add Category" severity="success" />
+
     </template>
     <template #end>
       <pv-button icon="pi pi-download" :label="$t('inventory.export')" severity="help" @click="exportToCsv"/>
@@ -103,5 +105,10 @@ export default {
 
 <style scoped>
 
+#createCategory{
+  background-color: lightblue;
+  border-color: lightskyblue;
+  margin-left: 0.5rem;
+}
 
 </style>
