@@ -1,14 +1,6 @@
 {
   "categories": [
     {
-      "id": 1,
-      "codigo": "A001",
-      "nombre": "Tela Algodón",
-      "almacen": "Almacén Central",
-      "categoria": "Algodón",
-      "cantidad": 120
-    },
-    {
       "id": 2,
       "codigo": "A002",
       "nombre": "Tela Poliéster",
@@ -38,13 +30,13 @@
       "id": 1,
       "nombre": "Almacén A",
       "temperatura": {
-        "actual": 12.5,
+        "actual": "21",
         "maxima": 28,
         "minima": 18,
         "unidad": "Celsius"
       },
       "humedad": {
-        "actual": 45,
+        "actual": 55,
         "maxima": 60,
         "minima": 30,
         "unidad": "%"
@@ -60,7 +52,7 @@
         "unidad": "Celsius"
       },
       "humedad": {
-        "actual": 67,
+        "actual": 15,
         "maxima": 65,
         "minima": 35,
         "unidad": "%"
@@ -70,7 +62,7 @@
       "id": 3,
       "nombre": "Almacén C",
       "temperatura": {
-        "actual": 21,
+        "actual": "52",
         "maxima": 25,
         "minima": 17,
         "unidad": "Celsius"
@@ -129,7 +121,7 @@
       "name": "Heater Pro",
       "model": "HP-300",
       "storeroom": 1,
-      "temperature": 12.5
+      "temperature": "41"
     },
     {
       "id": 2,
@@ -143,7 +135,7 @@
       "name": "Smart Heater",
       "model": "HP-200",
       "storeroom": 3,
-      "temperature": 21
+      "temperature": "52"
     }
   ],
   "humidifiers": [

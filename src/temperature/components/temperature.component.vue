@@ -53,6 +53,16 @@ export default {
             console.error('Error updating storeroom:', error);
           });
     },
+    setStoreroomHumidity(humidifier, storeroom) {
+      storeroom.humedad.actual = humidifier.humidity;
+      this.storeroomService.update(storeroom.id, storeroom)
+          .then(response => {
+            console.log('Storeroom updated:', response.data);
+          })
+          .catch(error => {
+            console.error('Error updating storeroom:', error);
+          });
+    },
     updateHeaterInDatabase(heater) {
       // Llama al servicio del calentador para actualizar la base de datos
       this.heaterService.update(heater.id, { temperature: heater.temperature })
@@ -124,7 +134,7 @@ export default {
       <!--termometros-->
       <div v-for="thermometer in thermometers" :key="thermometer.id">
         <!-- Tarjeta de termometro actual -->
-        <div class="card" v-if="thermometer.storeroom == storeroom.id">
+        <div class="card" v-if="thermometer.storeroom === storeroom.id">
           <h3>{{thermometer.name}}</h3>
           <div class="humidity-card">
             <div class="temperature-display">
@@ -145,7 +155,7 @@ export default {
       <!--higrometros-->
       <div v-for="hygrometer in hygrometers" :key="hygrometer.id">
         <!-- Tarjeta de humedad actual -->
-        <div class="card" v-if="hygrometer.storeroom == storeroom.id">
+        <div class="card" v-if="hygrometer.storeroom === storeroom.id">
           <h3>{{hygrometer.name}}</h3>
           <div class="humidity-card">
             <div class="humidity-display">
@@ -156,14 +166,14 @@ export default {
             </div>
           </div>
           <!-- Alerta de humedad alta-->
-          <div v-if="storeroom.humedad.actual < storeroom.humedad.minima" class="alert">¡Alerta! Humedad baja: {{ storeroom.humedad.actual }}°C</div>
-          <div v-if="storeroom.humedad.actual > storeroom.humedad.maxima" class="alert">¡Alerta! Humedad alta: {{ storeroom.humedad.actual }}°C</div>
+          <div v-if="storeroom.humedad.actual < storeroom.humedad.minima" class="alert">¡Alerta! Humedad baja: {{ storeroom.humedad.actual }}%</div>
+          <div v-if="storeroom.humedad.actual > storeroom.humedad.maxima" class="alert">¡Alerta! Humedad alta: {{ storeroom.humedad.actual }}%</div>
         </div>
       </div>
 
       <!--heater o calentador-->
       <div v-for="heater in heaters" :key="heater.id">
-        <div class="card" v-if="heater.storeroom == storeroom.id">
+        <div class="card" v-if="heater.storeroom === storeroom.id">
           <h3>{{heater.name}}</h3>
           <div class="humidity-card">
             <div class="humidity-display">
@@ -180,9 +190,9 @@ export default {
         </div>
       </div>
 
-      <!--humidifier-->
+      <!-- humidifier -->
       <div v-for="humidifier in humidifiers" :key="humidifier.id">
-        <div class="card" v-if="humidifier.storeroom == storeroom.id">
+        <div class="card" v-if="humidifier.storeroom === storeroom.id">
           <h3>{{humidifier.name}}</h3>
           <div class="humidity-card">
             <div class="humidity-display">
@@ -193,7 +203,7 @@ export default {
             </div>
           </div>
           <div class="card-footer">
-            <button>Set Humidity</button>
+            <button @click="setStoreroomHumidity(humidifier, storeroom)">Set Humidity</button>
             <button>Reset</button>
           </div>
         </div>

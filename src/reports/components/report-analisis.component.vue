@@ -1,5 +1,6 @@
 <script>
 import LineChartComponent from "../../shared/components/line-chart.component.vue";
+import axios from 'axios';
 
 export default {
   components: {
@@ -8,25 +9,22 @@ export default {
   data() {
     return {
       selectedWarehouse: null,
-      warehouses: [
-        { id: 1, name: 'Almacén 1' },
-        { id: 2, name: 'Almacén 2' }
-      ],
+      warehouses: [],
       irregularities: 'No se encontraron irregularidades',
       temperatureData: {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+        labels: ['Actual'],
         datasets: [
           {
             label: 'Temperatura (°C)',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)',
-            data: [10, 12, 8, 9, 14, 15],
+            data: [],
           },
           {
             label: 'Humedad (%)',
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
-            data: [30, 35, 32, 40, 42, 38],
+            data: [],
           },
         ],
       },
@@ -46,15 +44,25 @@ export default {
     },
   },
   methods: {
-    updateChartData(warehouse) {
-      if (warehouse.id === 1) {
-        this.temperatureData.datasets[0].data = [10, 12, 8, 9, 14, 15];
-        this.temperatureData.datasets[1].data = [30, 35, 32, 40, 42, 38];
-      } else if (warehouse.id === 2) {
-        this.temperatureData.datasets[0].data = [11, 13, 9, 10, 15, 16];
-        this.temperatureData.datasets[1].data = [31, 36, 33, 41, 43, 39];
+    async fetchWarehouses() {
+      try {
+        const response = await axios.get('/server/db.json');
+        this.warehouses = response.data.storerooms;
+      } catch (error) {
+        console.error('Error fetching warehouses:', error);
       }
     },
+    updateChartData(warehouse) {
+      if (warehouse && warehouse.temperatura && warehouse.humedad) {
+        this.temperatureData.datasets[0].data = [warehouse.temperatura.actual];
+        this.temperatureData.datasets[1].data = [warehouse.humedad.actual];
+      } else {
+        console.error('Datos de temperatura o humedad no encontrados para el almacén seleccionado');
+      }
+    },
+  },
+  created() {
+    this.fetchWarehouses();
   },
 };
 </script>
@@ -70,7 +78,7 @@ export default {
         <label>{{ $t('inventory.storeroom') }}: </label>
         <select v-model="selectedWarehouse">
           <option v-for="warehouse in warehouses" :key="warehouse.id" :value="warehouse">
-            {{ warehouse.name }}
+            {{ warehouse.nombre}}
           </option>
         </select>
       </div>
@@ -80,7 +88,7 @@ export default {
     <!-- Sección de Tendencias con gráfico de líneas -->
     <section>
       <h3>{{ $t('report.trends') }}</h3>
-      <line-chart-component :chartData="temperatureData" :chartOptions="chartOptions" />
+      <line-chart-component :chartData="temperatureData" :chartOptions="chartOptions"/>
     </section>
 
     <!-- Sección de Optimización de recursos -->
