@@ -43,6 +43,16 @@ export default {
             console.error('Error updating heater:', error);
           });
     },
+    setHumidifierHumidity(humidifier, humidity) {
+      humidifier.humidity = humidity;
+      this.humidifierService.update(humidifier.id, humidifier)
+          .then(response => {
+            console.log('Humidifier updated:', response.data);
+          })
+          .catch(error => {
+            console.error('Error updating humidifier:', error);
+          });
+    },
     setStoreroomTemperature(heater, storeroom) {
       storeroom.temperatura.actual = heater.temperature;
       this.storeroomService.update(storeroom.id, storeroom)
@@ -125,10 +135,22 @@ export default {
 
 
 <template>
-  <div v-for="storeroom in storerooms" :key="storeroom.id">
+
+  <div class="storeroom-container" v-for="storeroom in storerooms" :key="storeroom.id">
     <h2>{{ storeroom.nombre }}</h2>
-    <p>{{ storeroom.temperatura.actual }}</p>
-    <p>{{ storeroom.humedad.actual }}</p>
+
+    <div class="recommended">
+      <div>
+        <h4>Temperatura maxima recomendada: {{ storeroom.temperatura.maxima }}</h4>
+        <br>
+        <h4>Temperatura minima recomendada: {{ storeroom.temperatura.minima }}</h4>
+      </div>
+      <div>
+        <h4>Humedad maxima recomendada: {{ storeroom.humedad.maxima }}</h4>
+        <br>
+        <h4>Humedad minima recomendada: {{ storeroom.humedad.minima }}</h4>
+      </div>
+    </div>
 
     <div class="iot-container">
       <!--termometros-->
@@ -204,13 +226,11 @@ export default {
           </div>
           <div class="card-footer">
             <button @click="setStoreroomHumidity(humidifier, storeroom)">Set Humidity</button>
-            <button>Reset</button>
+            <button @click="setHumidifierHumidity(humidifier, storeroom.humedad.actual)">Reset</button>
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 
 </template>
@@ -220,6 +240,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.recommended{
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
 }
 
 .card {
@@ -307,6 +333,11 @@ export default {
   display: flex;
   justify-content: space-around;
   margin-top: 1rem;
+}
+
+.storeroom-container{
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 </style>
