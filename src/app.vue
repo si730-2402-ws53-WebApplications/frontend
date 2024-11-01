@@ -12,7 +12,7 @@ export default {
         { label: 'Inventory', to: '/publishing/categories', icon: 'folder' },
         { label: 'Temperature', to: '/temperature' ,icon: 'sun'},
         { label: 'Reports', to: '/reportes-y-analisis', icon: 'chart-line' },
-        { label: 'Maintenance', to: '/mantenimiento-y-soporte', icon: 'wrench' },
+        { label: 'Maintenance', to: '/management', icon: 'wrench' },
         { label: 'Settings', to: '/', icon: 'cog' },
       ]
     }
