@@ -125,7 +125,7 @@ export default {
       <!--termometros-->
       <div v-for="thermometer in thermometers" :key="thermometer.id">
         <!-- Tarjeta de termometro actual -->
-        <div class="card" v-if="thermometer.storeroomId === storeroom.id">
+        <div class="card" v-if=" parseInt(thermometer.storeroomId) === storeroom.id">
           <h3>{{thermometer.name}}</h3>
           <div class="humidity-card">
             <div class="temperature-display">
@@ -146,7 +146,7 @@ export default {
       <!--higrometros-->
       <div v-for="hygrometer in hygrometers" :key="hygrometer.id">
         <!-- Tarjeta de humedad actual -->
-        <div class="card" v-if="hygrometer.storeroomId === storeroom.id">
+        <div class="card" v-if="parseInt(hygrometer.storeroomId) === storeroom.id">
           <h3>{{hygrometer.name}}</h3>
           <div class="humidity-card">
             <div class="humidity-display">
@@ -164,7 +164,7 @@ export default {
 
       <!--heater o calentador-->
       <div v-for="heater in heaters" :key="heater.id">
-        <div class="card" v-if="heater.storeroomId === storeroom.id">
+        <div class="card" v-if="parseInt(heater.storeroomId) === storeroom.id">
           <h3>{{heater.name}}</h3>
           <div class="humidity-card">
             <div class="humidity-display">
@@ -183,7 +183,7 @@ export default {
 
       <!-- humidifier -->
       <div v-for="humidifier in humidifiers" :key="humidifier.id">
-        <div class="card" v-if="humidifier.storeroomId === storeroom.id">
+        <div class="card" v-if="parseInt(humidifier.storeroomId) === storeroom.id">
           <h3>{{humidifier.name}}</h3>
           <div class="humidity-card">
             <div class="humidity-display">

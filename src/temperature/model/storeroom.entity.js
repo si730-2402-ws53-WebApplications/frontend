@@ -1,27 +1,20 @@
-export class Storeroom {
-    constructor({
-                    id = '',
-                    name = '',
-                    location = '',
-                    description = '',
-                    capacity = '',
-                    contact = {
-                        phone: '',
-                        email: ''
-                    },
-                    temperature = {
-                        actual: '',
-                        maximum: '',
-                        minimum: '',
-                        unit: 'Celsius'
-                    },
-                    humidity = {
-                        actual: '',
-                        maximum: '',
-                        minimum: '',
-                        unit: 'percent'
-                    }
-                }) {
+import { Contact } from './contact.entity';
+import { Temperature } from './temperature.entity';
+import { Humidity } from './humidity.entity';
+
+export class Storeroom{
+    constructor(
+        {
+            id=0,
+            name='',
+            location='',
+            description='',
+            capacity=0,
+            contact= new Contact({}),
+            temperature= new Temperature({}),
+            humidity = new Humidity({}),
+        }
+    ) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -30,5 +23,4 @@ export class Storeroom {
         this.contact = contact;
         this.temperature = temperature;
         this.humidity = humidity;
-    }
-}
+    }}

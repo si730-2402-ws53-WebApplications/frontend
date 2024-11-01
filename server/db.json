@@ -37,13 +37,13 @@
         "email": "contact@example.com"
       },
       "temperature": {
-        "actual": "75",
+        "actual": 12.5,
         "maximum": 28,
         "minimum": 18,
         "unit": "Celsius"
       },
       "humidity": {
-        "actual": "60",
+        "actual": 45,
         "maximum": 60,
         "minimum": 30,
         "unit": "percent"
@@ -60,7 +60,7 @@
         "email": "contactb@example.com"
       },
       "temperature": {
-        "actual": 60,
+        "actual": 18,
         "maximum": 25,
         "minimum": 15,
         "unit": "Celsius"
@@ -121,7 +121,7 @@
       "model": "TP-100",
       "type": "Thermometer",
       "image": "",
-      "storeroomId": 1
+      "storeroomId": "1"
     },
     {
       "id": 2,
@@ -129,7 +129,7 @@
       "model": "HP-100",
       "type": "Hygrometer",
       "image": "",
-      "storeroomId": 1
+      "storeroomId": "1"
     },
     {
       "id": 3,
@@ -137,7 +137,7 @@
       "model": "TG-200",
       "type": "Thermometer",
       "image": "",
-      "storeroomId": 2
+      "storeroomId": "2"
     },
     {
       "id": 4,
@@ -145,7 +145,7 @@
       "model": "HM-300",
       "type": "Hygrometer",
       "image": "",
-      "storeroomId": 2
+      "storeroomId": "2"
     }
   ],
   "enviroDevices": [
@@ -153,19 +153,19 @@
       "id": 1,
       "name": "Heater Pro",
       "model": "HP-400",
-      "value": "75",
+      "value": 55,
       "type": "Heater",
       "unit": "Celsius",
-      "storeroomId": 1
+      "storeroomId": "1"
     },
     {
       "id": 2,
       "name": "AquaMist",
       "model": "AM-500",
-      "value": "19",
+      "value": 35,
       "type": "Humidifier",
       "unit": "percent",
-      "storeroomId": 1
+      "storeroomId": "1"
     },
     {
       "id": 3,
@@ -174,17 +174,16 @@
       "value": 60,
       "type": "Heater",
       "unit": "Celsius",
-      "storeroomId": 2,
-      "temperature": "33"
+      "storeroomId": "2"
     },
     {
       "id": 4,
-      "name": "MistPro",
-      "model": "MP-350",
+      "name": "MoistureControl",
+      "model": "MC-550",
       "value": 40,
       "type": "Humidifier",
       "unit": "percent",
-      "storeroomId": 2
+      "storeroomId": "2"
     }
   ]
 }
