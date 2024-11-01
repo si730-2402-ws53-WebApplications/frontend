@@ -23,6 +23,10 @@
       "almacen": "Almacén Este",
       "categoria": "Seda",
       "cantidad": 30
+    },
+    {
+      "id": 5,
+      "name": "a"
     }
   ],
   "storerooms": [
@@ -30,13 +34,13 @@
       "id": 1,
       "nombre": "Almacén A",
       "temperatura": {
-        "actual": "58",
+        "actual": 12.5,
         "maxima": 28,
         "minima": 18,
         "unidad": "Celsius"
       },
       "humedad": {
-        "actual": "36",
+        "actual": 45,
         "maxima": 60,
         "minima": 30,
         "unidad": "%"
@@ -121,7 +125,7 @@
       "name": "Heater Pro",
       "model": "HP-300",
       "storeroom": 1,
-      "temperature": "58"
+      "temperature": 12.5
     },
     {
       "id": 2,
@@ -144,7 +148,7 @@
       "name": "Humidifier Pro",
       "model": "HP-400",
       "storeroom": 1,
-      "humidity": "100"
+      "humidity": 55
     },
     {
       "id": 2,
