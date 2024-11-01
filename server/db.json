@@ -71,27 +71,6 @@
         "minimum": 25,
         "unit": "percent"
       }
-    },
-    {
-      "id": 3,
-      "name": "a",
-      "location": "a",
-      "description": "a",
-      "capacity": "90",
-      "contact": {
-        "phone": "a",
-        "email": "a"
-      },
-      "temperature": {
-        "maximum": 0,
-        "minimum": 0,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 0,
-        "minimum": 0,
-        "unit": "percent"
-      }
     }
   ],
   "fabricTypes": [
