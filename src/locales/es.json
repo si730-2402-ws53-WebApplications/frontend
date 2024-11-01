@@ -1,3 +1,23 @@
 {
+  "inventory": {
+    "title": "Inventario",
+    "add": "Agregar Tela",
+    "edit": "Editar Tela",
+    "delete": "Eliminar Tela",
+    "export": "Exportar",
+    "name": "Nombre",
+    "storeroom": "Almacén",
+    "category": "Categoria",
+    "manage": "Gestionar Telas",
+    "quantity": "Cantidad"
+  },
 
+  "report": {
+    "analysis": "Reportes y Análisis",
+    "byWarehouse": "Informes por almacén",
+    "irregularities": "Irregularidades",
+    "trends": "Tendencias",
+    "resourceOptimization": "Optimización de recursos",
+    "optimizationAnalysis": "Análisis de la eficiencia del uso del espacio y la rotación de inventario"
+  }
 }

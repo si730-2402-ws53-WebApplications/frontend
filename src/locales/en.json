@@ -1,3 +1,23 @@
 {
+  "inventory": {
+    "title": "Inventory",
+    "add": "Add Fabric",
+    "edit": "Edit Fabric",
+    "delete": "Delete Fabric",
+    "export": "Export",
+    "name": "Name",
+    "storeroom": "Storeroom",
+    "category": "Category",
+    "manage": "Manage Fabrics",
+    "quantity": "Quantity"
+  },
 
+  "report": {
+    "analysis": "Reports and Analysis",
+    "byWarehouse": "Reports by Warehouse",
+    "irregularities": "Irregularities",
+    "trends": "Trends",
+    "resourceOptimization": "Resource Optimization",
+    "optimizationAnalysis": "Analysis of Space Utilization Efficiency and Inventory Turnover"
+  }
 }

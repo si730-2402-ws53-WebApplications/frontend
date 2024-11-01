@@ -1,52 +1,16 @@
 <script>
 import { Category } from "../model/category.entity.js";
+import { CategoryService } from "../services/category.service.js";
 import DataManager from "../../shared/components/data-manager.component.vue";
 import CategoryCreateAndEditDialog from "../components/category-create-and-edit.component.vue";
-
-// Simula la data que viene del db.json
-const categoriesFromJson = [
-  {
-    id: 1,
-    codigo: "A001",
-    nombre: "Tela Algodón",
-    almacen: "Almacén Central",
-    categoria: "Algodón",
-    cantidad: 120
-  },
-  {
-    id: 2,
-    codigo: "A002",
-    nombre: "Tela Poliéster",
-    almacen: "Almacén Norte",
-    categoria: "Poliéster",
-    cantidad: 80
-  },
-  {
-    id: 3,
-    codigo: "A003",
-    nombre: "Tela Lino",
-    almacen: "Almacén Sur",
-    categoria: "Lino",
-    cantidad: 50
-  },
-  {
-    id: 4,
-    codigo: "A004",
-    nombre: "Tela Seda",
-    almacen: "Almacén Este",
-    categoria: "Seda",
-    cantidad: 30
-  }
-
-];
 
 export default {
   name: "category-management",
   components: { CategoryCreateAndEditDialog, DataManager },
   data() {
     return {
-      title: { singular: "Category", plural: "Categories" },
-      categories: [],
+      title: { singular: "Fabric", plural: "Fabrics" },
+      categories: [], // Se llenará con la data desde el servicio
       category: new Category({}),
       selectedCategories: [],
       categoryService: null,
@@ -99,41 +63,57 @@ export default {
       }
     },
     createCategory() {
-      // Simula la creación de categoría
-      const newCategory = new Category(this.category);
-      newCategory.id = this.categories.length + 1; // Genera un ID nuevo
-      this.categories.push(newCategory);
-      this.notifySuccessfulAction("Category created successfully");
+      this.categoryService.create(this.category)
+          .then(response => {
+            let category = new Category(response.data);
+            this.categories.push(category); // Añadir nueva categoría
+            this.notifySuccessfulAction("Category created successfully");
+          })
+          .catch(error => console.error(error));
     },
     updateCategory() {
-      const index = this.findIndexById(this.category.id);
-      this.categories[index] = new Category(this.category);
-      this.notifySuccessfulAction("Category updated successfully");
+      this.categoryService.update(this.category.id, this.category)
+          .then(response => {
+            let index = this.findIndexById(this.category.id);
+            this.categories[index] = new Category(response.data); // Actualizar la categoría
+            this.notifySuccessfulAction("Category updated successfully");
+          })
+          .catch(error => console.error(error));
     },
     deleteCategory() {
-      const index = this.findIndexById(this.category.id);
-      this.categories.splice(index, 1);
-      this.notifySuccessfulAction("Category deleted successfully");
+      this.categoryService.delete(this.category.id)
+          .then(() => {
+            let index = this.findIndexById(this.category.id);
+            this.categories.splice(index, 1); // Eliminar la categoría
+            this.notifySuccessfulAction("Category deleted successfully");
+          })
+          .catch(error => console.error(error));
     },
     deleteSelectedCategories() {
       this.selectedCategories.forEach((category) => {
-        const index = this.findIndexById(category.id);
-        if (index !== -1) {
-          this.categories.splice(index, 1);
-        }
+        this.categoryService.delete(category.id)
+            .then(() => {
+              this.categories = this.categories.filter(c => c.id !== category.id); // Eliminar las categorías seleccionadas
+            })
+            .catch(error => console.error(error));
       });
       this.notifySuccessfulAction("Selected Categories deleted successfully");
     }
   },
   created() {
-    // Cargar categorías simulando la llamada a un servicio
-    this.categories = categoriesFromJson.map((category) => new Category(category));
+    this.categoryService = new CategoryService();
+    this.categoryService.getAll()
+        .then(response => {
+          this.categories = response.data.map(category => new Category(category)); // Cargar las categorías desde el servidor
+        })
+        .catch(error => console.error(error));
   }
 };
 </script>
 
 <template>
   <div class="w-full">
+    <h3>{{ $t('inventory.manage') }}</h3>
     <data-manager
         :title="title"
         v-bind:items="categories"
@@ -144,10 +124,10 @@ export default {
     >
       <template #custom-columns>
         <pv-column :sortable="true" field="id" header="ID" style="min-width: 12rem" />
-        <pv-column :sortable="true" field="nombre" header="Nombre" style="min-width: 24rem" />
-        <pv-column :sortable="true" field="almacen" header="Almacén" style="min-width: 24rem" />
-        <pv-column :sortable="true" field="categoria" header="Categoría" style="min-width: 24rem" />
-        <pv-column :sortable="true" field="cantidad" header="Cantidad" style="min-width: 24rem" />
+        <pv-column :sortable="true" field="nombre" :header="$t('inventory.name')" style="min-width: 24rem" />
+        <pv-column :sortable="true" field="almacen" :header="$t('inventory.storeroom')" style="min-width: 24rem" />
+        <pv-column :sortable="true" field="categoria" :header="$t('inventory.category')" style="min-width: 24rem" />
+        <pv-column :sortable="true" field="cantidad" :header="$t('inventory.quantity')" style="min-width: 24rem" />
       </template>
     </data-manager>
     <category-create-and-edit-dialog

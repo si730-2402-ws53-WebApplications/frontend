@@ -9,11 +9,12 @@ export default {
     return {
       drawer: false,
       items: [
-        { label: 'Control Ambiental', to: '/control-ambiental' },
-        { label: 'Reportes y análisis', to: '/reportes-y-analisis' },
-        { label: 'Inventario', to: '/publishing/categories' },
-        { label: 'Mantenimiento y soporte', to: '/mantenimiento-y-soporte' },
-        { label: 'Temperature', to: '/temperature' },
+        { label: 'Inventory', to: '/publishing/categories', icon: 'folder' },
+        { label: 'Temperature', to: '/temperature' ,icon: 'sun'},
+        { label: 'Reports', to: '/reportes-y-analisis', icon: 'chart-line' },
+        //{ label: 'Maintenance', to: '/mantenimiento-y-soporte', icon: 'wrench' },
+        { label: 'Maintenance', to: '/management', icon: 'wrench' },
+        { label: 'Settings', to: '/', icon: 'cog' },
       ]
     }
   },
@@ -47,11 +48,6 @@ export default {
         </div>
       </template>-->
       <template #end>
-        <div id="search-container" class="toolbar-icon">
-          <pv-button id="search-icon"><i class="pi pi-search"></i></pv-button>
-          <input type="text" class="search-input">
-        </div>
-        <pv-button class="toolbar-icon" id="notification-icon"><i class="pi pi-bell"></i></pv-button>
         <pv-button class="toolbar-icon" id="user-icon"><i class="pi pi-user"></i></pv-button>
         <language-switcher/>
       </template>
@@ -68,7 +64,7 @@ export default {
                      :key="item.label"
                      v-slot="{ navigate, href }"
                      :to="item.to" custom>
-          <pv-button class="drawer-button" :href="href" @click="navigate">{{item.label}}</pv-button>
+          <pv-button class="drawer-button" :href="href" @click="navigate"><a :class="`pi pi-${item.icon}`"></a>{{item.label}}</pv-button>
         </router-link>
       </div>
     </pv-drawer>
@@ -122,6 +118,9 @@ export default {
   background-color: black;
   border-color: black;
   text-align: left;
+  color:white;
+  display: flex;
+  justify-content: left;
 }
 
 .drawer-button:hover{
@@ -130,26 +129,7 @@ export default {
   color: #003366 !important;
 }
 
-/*search stuff*/
-#search-container{
-  background-color: white;
-  border-radius: 5px;
-  padding: 0px 10px 0px 0px;
-}
-
-#search-icon{
-  background-color: transparent;
-  border: none;
-  color: black;
-}
-
-.search-input{
-  border: none;
-}
-
-/*icons */
-
-#notification-icon, #bars-icon{
+#bars-icon{
   background-color: transparent;
   border: none;
 }
