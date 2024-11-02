@@ -246,7 +246,7 @@ export default {
 .heater-card,
 .humidifier-card {
   background-color: #f0f8ff; /* Light blue background for devices */
-  border: 1px solid #007bff; /* Blue border for devices */
+  border: 1px  #007bff; /* Blue border for devices */
   border-radius: 8px;
   padding: 10px;
 }

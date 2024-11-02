@@ -23,6 +23,14 @@
       "storeroomId": 2,
       "categoryId": 3,
       "quantity": 50
+    },
+    {
+      "id": 4,
+      "code": "A004",
+      "name": "TelaDura",
+      "storeroomId": "1",
+      "categoryId": "2",
+      "quantity": 10
     }
   ],
   "storerooms": [

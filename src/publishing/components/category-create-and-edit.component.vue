@@ -13,15 +13,7 @@ export default {
       submitted: false
     }
   },
-  methods: {
-    onCancelRequested() {
-      this.$emit('cancel-requested');
-    },
-    onSaveRequested() {
-      this.submitted = true;
-      this.$emit('save-requested', this.item);
-    }
-  }
+
 }
 </script>
 
