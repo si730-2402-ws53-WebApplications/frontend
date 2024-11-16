@@ -1,12 +1,17 @@
-import axios from 'axios';
+import http from "../../shared/services/http-common.js";
 
-export default {
-    async getWarehouses() {
-        const response = await axios.get('/api/warehouses');
-        return response.data;
-    },
-    async getTemperatureData() {
-        const response = await axios.get('/api/temperature');
-        return response.data;
+class ReportService {
+    getFabrics() {
+        return http.get('/fabrics');
     }
-};
+
+    getEnviroDevices() {
+        return http.get('/enviroDevices');
+    }
+
+    getClimateSensors() {
+        return http.get('/climateSensors');
+    }
+}
+
+export default new ReportService();

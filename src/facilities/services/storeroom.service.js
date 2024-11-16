@@ -11,12 +11,12 @@ export class StoreroomService {
         return http.get(`${this.resourceEndpoint}/${id}`);
     }
 
-    create(categoryResource) {
-        return http.post(this.resourceEndpoint, categoryResource);
+    create(storeroomResource) {
+        return http.post(this.resourceEndpoint, storeroomResource);
     }
 
-    update(id, categoryResource) {
-        return http.put(`${this.resourceEndpoint}/${id}`, categoryResource);
+    update(id, storeroomResource) {
+        return http.put(`${this.resourceEndpoint}/${id}`, storeroomResource);
     }
 
     delete(id) {
@@ -26,6 +26,8 @@ export class StoreroomService {
     findByName(name) {
         return http.get(`${this.resourceEndpoint}?name=${name}`);
     }
+
+
 
 
 
