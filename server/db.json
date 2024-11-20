@@ -1,25 +1,33 @@
 {
   "fabrics": [
     {
-      "id": 1,
+      "id": "1",
       "code": "A001",
       "name": "Cotton Fabric",
-      "storeroomId": 1,
+      "storeroomId": "3",
       "categoryId": 2,
       "quantity": 120
     },
     {
-      "id": 2,
+      "id": "2",
       "code": "A002",
       "name": "Polyester Fabric",
       "storeroomId": 1,
       "categoryId": 1,
-      "quantity": 80
+      "quantity": 60
     },
     {
-      "id": 4,
+      "id": "3",
+      "code": "A003",
+      "name": "Wool Fabric",
+      "storeroomId": 2,
+      "categoryId": 3,
+      "quantity": 90
+    },
+    {
+      "id": "4",
       "code": "A004",
-      "name": "TelaDura",
+      "name": "Papiro Fabric",
       "storeroomId": "1",
       "categoryId": "2",
       "quantity": 10
@@ -27,7 +35,7 @@
   ],
   "storerooms": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Warehouse A",
       "location": "Warehouse Address",
       "description": "Main storage for high-demand fabrics",
@@ -37,15 +45,38 @@
         "email": "contact@example.com"
       },
       "temperature": {
-        "actual": "0",
+        "actual": 12.5,
         "maximum": 28,
         "minimum": 18,
         "unit": "Celsius"
       },
       "humidity": {
-        "actual": "70",
+        "actual": 45,
         "maximum": 60,
         "minimum": 30,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Warehouse B",
+      "location": "Second Warehouse Location",
+      "description": "Storage for delicate fabrics",
+      "capacity": 800,
+      "contact": {
+        "phone": "987-654-3210",
+        "email": "contactb@example.com"
+      },
+      "temperature": {
+        "actual": 18,
+        "maximum": 25,
+        "minimum": 15,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 40,
+        "maximum": 55,
+        "minimum": 25,
         "unit": "percent"
       }
     }
@@ -62,7 +93,8 @@
         "maximum": 50,
         "minimum": 30,
         "unit": "percent"
-      }
+      },
+      "id": "ca65"
     },
     {
       "name": "Polyester",
@@ -75,7 +107,8 @@
         "maximum": 60,
         "minimum": 35,
         "unit": "percent"
-      }
+      },
+      "id": "1a57"
     },
     {
       "name": "Wool",
@@ -88,12 +121,13 @@
         "maximum": 65,
         "minimum": 40,
         "unit": "percent"
-      }
+      },
+      "id": "bea4"
     }
   ],
   "climateSensors": [
     {
-      "id": 1,
+      "id": "1",
       "name": "PrecisionTherm",
       "model": "TP-100",
       "type": "Thermometer",
@@ -101,17 +135,33 @@
       "storeroomId": "1"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "HumidityPro",
       "model": "HP-100",
       "type": "Hygrometer",
       "image": "",
       "storeroomId": "1"
+    },
+    {
+      "id": "3",
+      "name": "ThermoGuard",
+      "model": "TG-200",
+      "type": "Thermometer",
+      "image": "",
+      "storeroomId": "2"
+    },
+    {
+      "id": "4",
+      "name": "HumidityMaster",
+      "model": "HM-300",
+      "type": "Hygrometer",
+      "image": "",
+      "storeroomId": "2"
     }
   ],
   "enviroDevices": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Heater Pro",
       "model": "HP-400",
       "value": 55,
@@ -120,13 +170,99 @@
       "storeroomId": "1"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "AquaMist",
       "model": "AM-500",
       "value": 35,
       "type": "Humidifier",
       "unit": "percent",
       "storeroomId": "1"
+    },
+    {
+      "id": "3",
+      "name": "HeatMax",
+      "model": "HM-250",
+      "value": 60,
+      "type": "Heater",
+      "unit": "Celsius",
+      "storeroomId": "2"
+    },
+    {
+      "id": "4",
+      "name": "MoistureControl",
+      "model": "MC-550",
+      "value": 40,
+      "type": "Humidifier",
+      "unit": "percent",
+      "storeroomId": "2"
+    }
+  ],
+  "saveReport": [
+    {
+      "id": 1,
+      "date": "2024-11-20T06:21:37.803Z",
+      "fabricsData": [
+        100,
+        60,
+        90,
+        10
+      ],
+      "enviroDevicesData": [
+        55,
+        35,
+        60,
+        40
+      ],
+      "climateSensorsData": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": 1,
+      "date": "2024-11-20T06:24:34.101Z",
+      "fabricsData": [
+        100,
+        60,
+        90,
+        10
+      ],
+      "enviroDevicesData": [
+        55,
+        35,
+        60,
+        40
+      ],
+      "climateSensorsData": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2024-11-20T06:25:27.489Z",
+      "fabricsData": [
+        120,
+        60,
+        90,
+        10
+      ],
+      "enviroDevicesData": [
+        55,
+        35,
+        60,
+        40
+      ],
+      "climateSensorsData": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
     }
   ]
 }
