@@ -1,5 +1,5 @@
 <script>
-import StoreroomItemComponent from "./storeroom-item.component.vue";
+import StoreroomItemComponent from "./warehouse-item.component.vue";
 
 export default {
   name: "storeroom-list",

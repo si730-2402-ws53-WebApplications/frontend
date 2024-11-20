@@ -1,9 +1,9 @@
 <script>
 import {Storeroom} from "../model/storeroom.entity.js";
 import {StoreroomService} from "../services/storeroom.service.js";
-import StoreroomList from "../components/storeroom-list.component.vue";
+import StoreroomList from "../components/warehouse-list.component.vue";
 
-import StoreroomCreateAndEdit from "../components/storeroom-create-and-edit.component.vue";
+import StoreroomCreateAndEdit from "../components/warehouse-create-and-edit.component.vue";
 import {ClimateSensor} from "../model/climateSensor.entity.js";
 import ClimateSensorCreateAndEdit from "../components/climateSensor-create-and-edit.vue";
 import EnviroDeviceCreateAndEdit from "../components/enviroDevice-create-and-edit.component.vue";
@@ -230,9 +230,11 @@ export default {
   <pv-toolbar class="mb-4">
     <template #start>
       <pv-button class="mr-2" icon="pi pi-plus" label="New" severity="success" @click="onNewItem"/>
+      <router-link to="/temperature">
+        <pv-button class="mr-2" icon="pi pi-thermometer" label="Environment" severity="info"/>
+      </router-link>
     </template>
   </pv-toolbar>
-
 
   <storeroom-create-and-edit
       :edit="isEdit"
@@ -255,16 +257,11 @@ export default {
       v-on:cancel-requested="onCancelRequestedDevice"
       v-on:save-requested="onSaveRequestedDevice($event)"/>
 
-
   <div class="container">
     <storeroom-list :storerooms="storerooms" :deleteStoreroom="deleteStoreroom" :onEditRequested="onEditRequested"
-                  :onEditRequestedSensor="onEditRequestedSensor"
-                  :onEditRequestedDevice="onEditRequestedDevice"/>
+                    :onEditRequestedSensor="onEditRequestedSensor"
+                    :onEditRequestedDevice="onEditRequestedDevice"/>
   </div>
-
-
-
-
 </template>
 
 <style scoped>
@@ -275,24 +272,44 @@ export default {
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 10px;
+  transition: color 0.3s ease-in-out;
+}
+
+h1:hover {
+  color: #00e676; /* Neon green color on hover */
 }
 
 p {
   font-size: 1.1rem;
   color: #666;
   margin-bottom: 20px;
+  transition: color 0.3s ease-in-out;
+}
+
+p:hover {
+  color: #00e676; /* Neon green color on hover */
 }
 
 .pv-toolbar {
   background-color: #4CAF50; /* Toolbar background color */
   padding: 10px;
   border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.pv-toolbar:hover {
+  background-color: #388E3C; /* Darker shade on hover */
 }
 
 .pv-button {
@@ -302,11 +319,12 @@ p {
   border-radius: 4px;
   padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .pv-button:hover {
   background-color: #005f73; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 .mb-4 {
@@ -315,9 +333,14 @@ p {
 
 .deposit-list {
   margin-top: 20px; /* Space above the deposit list */
-  border: 1px solid #ddd; /* Border around the list */
+  border: 1px solid #ddd; /* Border zaround the list */
   border-radius: 4px;
   overflow: hidden;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.deposit-list:hover {
+  border-color: #00e676; /* Neon green border on hover */
 }
 
 .deposit-list tr {
@@ -331,15 +354,27 @@ p {
 .dialog {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.dialog:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .dialog-header {
   background-color: #4CAF50;
   color: white;
   padding: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dialog-header:hover {
+  background-color: #388E3C; /* Darker shade on hover */
 }
 
 .dialog-content {
   padding: 20px;
 }
+
+
 </style>
