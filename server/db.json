@@ -1,14 +1,6 @@
 {
   "fabrics": [
     {
-      "id": "1",
-      "code": "A001",
-      "name": "Cotton Fabric",
-      "storeroomId": "3",
-      "categoryId": 2,
-      "quantity": 120
-    },
-    {
       "id": "2",
       "code": "A002",
       "name": "Polyester Fabric",
@@ -77,6 +69,27 @@
         "actual": 40,
         "maximum": 55,
         "minimum": 25,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": "eYDX9eb",
+      "name": "Valentino Sandoval Paiva",
+      "location": "Valentino Sandoval Paiva",
+      "description": "Valentino Sandoval Paiva",
+      "capacity": "1",
+      "contact": {
+        "phone": "954392373",
+        "email": "valentinosandoval2805@gmail.com"
+      },
+      "temperature": {
+        "maximum": 0,
+        "minimum": 0,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "maximum": 0,
+        "minimum": 0,
         "unit": "percent"
       }
     }
@@ -157,6 +170,22 @@
       "type": "Hygrometer",
       "image": "",
       "storeroomId": "2"
+    },
+    {
+      "id": "c3gaRsD",
+      "name": "ID_User",
+      "model": "ID_User",
+      "type": "Hygrometer",
+      "image": "ID_User",
+      "storeroomId": "eYDX9eb"
+    },
+    {
+      "id": "4gZJPCw",
+      "name": "Valentino Sandoval",
+      "model": "ID_User",
+      "type": "Hygrometer",
+      "image": "Valentino Sandoval",
+      "storeroomId": "eYDX9eb"
     }
   ],
   "enviroDevices": [
@@ -195,6 +224,24 @@
       "type": "Humidifier",
       "unit": "percent",
       "storeroomId": "2"
+    },
+    {
+      "id": "qJozoUl",
+      "name": "Agileland",
+      "model": "",
+      "value": 0,
+      "type": "Heater",
+      "unit": "Celsius",
+      "storeroomId": "eYDX9eb"
+    },
+    {
+      "id": "iBrfCmT",
+      "name": "Valentino Sandoval",
+      "model": "ID_User",
+      "value": 0,
+      "type": "Humidifier",
+      "unit": "percent",
+      "storeroomId": "eYDX9eb"
     }
   ],
   "saveReport": [

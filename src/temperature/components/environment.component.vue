@@ -102,114 +102,147 @@ export default {
 };
 </script>
 
-
 <template>
-
-  <div class="storeroom-container" v-for="storeroom in storerooms" :key="storeroom.id">
-    <h2>{{ storeroom.name }}</h2>
-
-    <div class="recommended">
-      <div>
-        <h4>Temperatura maxima recomendada: {{ storeroom.temperature.maximum }}</h4>
-        <br>
-        <h4>Temperatura minima recomendada: {{ storeroom.temperature.minimum }}</h4>
-      </div>
-      <div>
-        <h4>Humedad maxima recomendada: {{ storeroom.humidity.maximum }}</h4>
-        <br>
-        <h4>Humedad minima recomendada: {{ storeroom.humidity.minimum }}</h4>
-      </div>
+  <div>
+    <!-- Botón para regresar a /management -->
+    <div class="back-button">
+      <router-link to="/management">
+        <button class="return-btn">Management</button>
+      </router-link>
     </div>
 
-    <div class="iot-container">
-      <!--termometros-->
-      <div v-for="thermometer in thermometers" :key="thermometer.id">
-        <!-- Tarjeta de termometro actual -->
-        <div class="card" v-if=" parseInt(thermometer.storeroomId) === storeroom.id">
-          <h3>{{thermometer.name}}</h3>
-          <div class="humidity-card">
-            <div class="temperature-display">
-              <div class="termometro">
-                <div class="mercurio" :style="{ height: `${(storeroom.temperature.actual) / (100) * 100}%` }"></div>
-              </div>
-              <div class="temperature-card">
-                <p>{{ storeroom.temperature.actual }}°C</p>
-              </div>
-            </div>
-          </div>
-          <!-- Alerta de temperatura alta-->
-          <div v-if="storeroom.temperature.actual < storeroom.temperature.minimum" class="alert">¡Alerta! Temperatura baja: {{ storeroom.temperature.actual }}°C</div>
-          <div v-if="storeroom.temperature.actual > storeroom.temperature.maximum" class="alert">¡Alerta! Temperatura alta: {{ storeroom.temperature.actual }}°C</div>
+    <!-- Contenedor principal de los almacenes -->
+    <div class="storeroom-container" v-for="storeroom in storerooms" :key="storeroom.id">
+      <h2>{{ storeroom.name }}</h2>
+
+      <!-- Recomendaciones de temperatura y humedad -->
+      <div class="recommended">
+        <div>
+          <h4>Temperatura maxima recomendada: {{ storeroom.temperature.maximum }}</h4>
+          <br>
+          <h4>Temperatura minima recomendada: {{ storeroom.temperature.minimum }}</h4>
+        </div>
+        <div>
+          <h4>Humedad maxima recomendada: {{ storeroom.humidity.maximum }}</h4>
+          <br>
+          <h4>Humedad minima recomendada: {{ storeroom.humidity.minimum }}</h4>
         </div>
       </div>
 
-      <!--higrometros-->
-      <div v-for="hygrometer in hygrometers" :key="hygrometer.id">
-        <!-- Tarjeta de humedad actual -->
-        <div class="card" v-if="parseInt(hygrometer.storeroomId) === storeroom.id">
-          <h3>{{hygrometer.name}}</h3>
-          <div class="humidity-card">
-            <div class="humidity-display">
-              <div class="temperature-card">
-                <p>{{ storeroom.humidity.actual }}%</p>
+      <!-- Contenedor de IoT -->
+      <div class="iot-container">
+        <!-- Termómetros -->
+        <div v-for="thermometer in thermometers" :key="thermometer.id">
+          <div class="card" v-if="parseInt(thermometer.storeroomId) === storeroom.id">
+            <h3>{{ thermometer.name }}</h3>
+            <div class="humidity-card">
+              <div class="temperature-display">
+                <div class="termometro">
+                  <div class="mercurio" :style="{ height: `${(storeroom.temperature.actual) / 100 * 100}%` }"></div>
+                </div>
+                <div class="temperature-card">
+                  <p>{{ storeroom.temperature.actual }}°C</p>
+                </div>
               </div>
-              <div :style="{ width: storeroom.humidity.actual + '%' }" class="humidity-bar"></div>
             </div>
-          </div>
-          <!-- Alerta de humedad alta-->
-          <div v-if="storeroom.humidity.actual < storeroom.humidity.minimum" class="alert">¡Alerta! Humedad baja: {{ storeroom.humidity.actual }}%</div>
-          <div v-if="storeroom.humidity.actual > storeroom.humidity.maximum" class="alert">¡Alerta! Humedad alta: {{ storeroom.humidity.actual }}%</div>
-        </div>
-      </div>
-
-      <!--heater o calentador-->
-      <div v-for="heater in heaters" :key="heater.id">
-        <div class="card" v-if="parseInt(heater.storeroomId) === storeroom.id">
-          <h3>{{heater.name}}</h3>
-          <div class="humidity-card">
-            <div class="humidity-display">
-              <div class="temperature-card">
-                <p>{{ heater.value }}°C</p>
-              </div>
-              <input type="range" v-model="heater.value" min="0" max="100" />
-            </div>
-          </div>
-          <div class="card-footer">
-            <button @click="setStoreroomTemperature(heater, storeroom)">Set Temperature</button>
-            <button @click="setHeaterTemperature(heater, storeroom.temperature.actual)">Reset</button>
+            <div v-if="storeroom.temperature.actual < storeroom.temperature.minimum" class="alert">¡Alerta! Temperatura baja: {{ storeroom.temperature.actual }}°C</div>
+            <div v-if="storeroom.temperature.actual > storeroom.temperature.maximum" class="alert">¡Alerta! Temperatura alta: {{ storeroom.temperature.actual }}°C</div>
           </div>
         </div>
-      </div>
 
-      <!-- humidifier -->
-      <div v-for="humidifier in humidifiers" :key="humidifier.id">
-        <div class="card" v-if="parseInt(humidifier.storeroomId) === storeroom.id">
-          <h3>{{humidifier.name}}</h3>
-          <div class="humidity-card">
-            <div class="humidity-display">
-              <div class="temperature-card">
-                <p>{{ humidifier.value }}%</p>
+        <!-- Higrómetros -->
+        <div v-for="hygrometer in hygrometers" :key="hygrometer.id">
+          <div class="card" v-if="parseInt(hygrometer.storeroomId) === storeroom.id">
+            <h3>{{ hygrometer.name }}</h3>
+            <div class="humidity-card">
+              <div class="humidity-display">
+                <div class="temperature-card">
+                  <p>{{ storeroom.humidity.actual }}%</p>
+                </div>
+                <div :style="{ width: storeroom.humidity.actual + '%' }" class="humidity-bar"></div>
               </div>
-              <input type="range" v-model="humidifier.value" min="0" max="100" />
+            </div>
+            <div v-if="storeroom.humidity.actual < storeroom.humidity.minimum" class="alert">¡Alerta! Humedad baja: {{ storeroom.humidity.actual }}%</div>
+            <div v-if="storeroom.humidity.actual > storeroom.humidity.maximum" class="alert">¡Alerta! Humedad alta: {{ storeroom.humidity.actual }}%</div>
+          </div>
+        </div>
+
+        <!-- Calentadores -->
+        <div v-for="heater in heaters" :key="heater.id">
+          <div class="card" v-if="parseInt(heater.storeroomId) === storeroom.id">
+            <h3>{{ heater.name }}</h3>
+            <div class="humidity-card">
+              <div class="humidity-display">
+                <div class="temperature-card">
+                  <p>{{ heater.value }}°C</p>
+                </div>
+                <input type="range" v-model="heater.value" min="0" max="100" />
+              </div>
+            </div>
+            <div class="card-footer">
+              <button @click="setStoreroomTemperature(heater, storeroom)">Set Temperature</button>
+              <button @click="setHeaterTemperature(heater, storeroom.temperature.actual)">Reset</button>
             </div>
           </div>
-          <div class="card-footer">
-            <button @click="setStoreroomHumidity(humidifier, storeroom)">Set Humidity</button>
-            <button @click="setHumidifierHumidity(humidifier, storeroom.humidity.actual)">Reset</button>
+        </div>
+
+        <!-- Humidificadores -->
+        <div v-for="humidifier in humidifiers" :key="humidifier.id">
+          <div class="card" v-if="parseInt(humidifier.storeroomId) === storeroom.id">
+            <h3>{{ humidifier.name }}</h3>
+            <div class="humidity-card">
+              <div class="humidity-display">
+                <div class="temperature-card">
+                  <p>{{ humidifier.value }}%</p>
+                </div>
+                <input type="range" v-model="humidifier.value" min="0" max="100" />
+              </div>
+            </div>
+            <div class="card-footer">
+              <button @click="setStoreroomHumidity(humidifier, storeroom)">Set Humidity</button>
+              <button @click="setHumidifierHumidity(humidifier, storeroom.humidity.actual)">Reset</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <style>
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.back-button {
+  margin-bottom: 20px;
+  text-align: center;
+
 }
+
+.return-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.return-btn:hover {
+  background-color: #388E3C;
+  transform: scale(1.05);
+}
+
+.storeroom-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
 
 .recommended{
   display: flex;

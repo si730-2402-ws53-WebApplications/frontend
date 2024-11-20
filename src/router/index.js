@@ -2,9 +2,9 @@ import {createRouter, createWebHistory} from "vue-router";
 import HomeComponent from "../public/pages/home.component.vue";
 import AboutComponent from "../public/pages/about.component.vue";
 import CategoryManagementComponent from "../publishing/pages/category-management.component.vue";
-import TemperatureComponent from '../temperature/components/temperature.component.vue'; // Importa el componente de temperatura
+import TemperatureComponent from '../temperature/components/environment.component.vue'; // Importa el componente de temperatura
 import ReportAnalisisComponent from "../reports/components/report-analisis.component.vue";
-import StoreroomManagementComponent from "../facilities/pages/storeroom-management.component.vue";
+import StoreroomManagementComponent from "../facilities/pages/warehouse-management.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
