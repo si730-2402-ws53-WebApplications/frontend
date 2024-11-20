@@ -125,9 +125,9 @@ export default {
     >
       <template #custom-columns>
         <pv-column :sortable="true" field="id" header="ID" class="column" />
-        <pv-column :sortable="true" field="code" :header="$t('inventory.code')" class="column" />
+
         <pv-column :sortable="true" field="name" :header="$t('inventory.name')" class="column" />
-        <pv-column :sortable="true" field="storeroomId" :header="$t('inventory.storeroom')" class="column" />
+        <pv-column :sortable="true" field="warehouseId" :header="$t('inventory.warehouse')" class="column" />
         <pv-column :sortable="true" field="categoryId" :header="$t('inventory.category')" class="column" />
         <pv-column :sortable="true" field="quantity" :header="$t('inventory.quantity')" class="column" />
       </template>

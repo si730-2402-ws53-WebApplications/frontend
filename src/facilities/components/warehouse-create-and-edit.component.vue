@@ -1,7 +1,7 @@
 <script>
 import CreateAndEdit from "../../shared/components/create-and-edit.component.vue";
 export default {
-  name: "storeroom-create-and-edit",
+  name: "warehouse-create-and-edit",
   components: {CreateAndEdit},
   props: {
     edit: Boolean,
@@ -79,7 +79,65 @@ export default {
                            :class="{'p-invalid': submitted && !item.contact.email }"/>
           </pv-float-label>
         </div>
+
+        <div class="field mt-5">
+          <pv-float-label>
+            <label for="actualTemperature">Actual Temperature</label>
+            <pv-input-text id="actualTemperature" v-model="item.temperature.actual"
+                           :class="{'p-invalid': submitted && item.item.temperature.actual < 0 }"/>
+          </pv-float-label>
+        </div>
+        <div class="field mt-5">
+          <pv-float-label>
+            <label for="maximumTemperature">Maximum Temperature</label>
+            <pv-input-text id="maximumTemperature" v-model="item.temperature.maximum"
+                           :class="{'p-invalid': submitted && item.temperature.maximum < 0 }"/>
+          </pv-float-label>
+        </div>
+        <div class="field mt-5">
+          <pv-float-label>
+            <label for="minimumTemperature">Minimum Temperature</label>
+            <pv-input-text id="minimumTemperature" v-model="item.temperature.minimum"
+                           :class="{'p-invalid': submitted && item.item.temperature.minimum < 0 }"/>
+          </pv-float-label>
+        </div>
+        <div class="field mt-5">
+          <pv-float-label>
+            <label for="temperatureUnit">Temperature Unit</label>
+            <pv-input-text id="temperatureUnit" v-model="item.temperature.unit"
+                           :class="{'p-invalid': submitted && !item.temperature.unit }"/>
+          </pv-float-label>
+        </div>
+        <div class="field mt-5">
+          <pv-float-label>
+            <label for="actualHumidity">Actual Humidity</label>
+            <pv-input-text id="actualHumidity" v-model="item.humidity.actual"
+                           :class="{'p-invalid': submitted && item.humidity.actual< 0 }"/>
+          </pv-float-label>
+        </div>
+        <div class="field mt-5">
+          <pv-float-label>
+            <label for="maximumHumidity">Maximum Humidity</label>
+            <pv-input-text id="maximumHumidity" v-model="item.humidity.maximum"
+                           :class="{'p-invalid': submitted && item.humidity.maximum < 0 }"/>
+          </pv-float-label>
+        </div>
+        <div class="field mt-5">
+          <pv-float-label>
+            <label for="minimumHumidity">Minimum Humidity</label>
+            <pv-input-text id="minimumHumidity" v-model="item.humidity.minimum"
+                           :class="{'p-invalid': submitted && item.humidity.minimum < 0 }"/>
+          </pv-float-label>
+        </div>
+        <div class="field mt-5">
+          <pv-float-label>
+            <label for="humidityUnit">Humidity Unit</label>
+            <pv-input-text id="humidityUnit" v-model="item.humidity.unit"
+                           :class="{'p-invalid': submitted && !item.humidity.unit }"/>
+          </pv-float-label>
+        </div>
       </div>
+
     </template>
   </create-and-edit>
 </template>

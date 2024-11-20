@@ -4,7 +4,7 @@ import AboutComponent from "../public/pages/about.component.vue";
 import CategoryManagementComponent from "../publishing/pages/category-management.component.vue";
 import TemperatureComponent from '../temperature/components/environment.component.vue'; // Importa el componente de temperatura
 import ReportAnalisisComponent from "../reports/components/report-analisis.component.vue";
-import StoreroomManagementComponent from "../facilities/pages/warehouse-management.component.vue";
+import WarehouseManagementComponent from "../facilities/pages/warehouse-management.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -13,7 +13,7 @@ const router = createRouter({
         { path: '/publishing/categories',   name: 'categories', component: CategoryManagementComponent, meta: { title: 'Categories'}},
         { path: '/reportes-y-analisis',        name: 'analisis',   component: ReportAnalisisComponent,    meta: { title: 'Analisis'}},
         { path: '/temperature',             name: 'temperature', component: TemperatureComponent, meta: { title: 'Temperature' }}, // Agrega esta línea
-        { path: '/management',             name: 'deposit', component: StoreroomManagementComponent, meta: { title: 'DepositManagement' }}, // Agrega esta línea
+        { path: '/management',             name: 'deposit', component: WarehouseManagementComponent, meta: { title: 'DepositManagement' }}, // Agrega esta línea
         { path: '/',                        redirect: '/home' }
     ]
 });

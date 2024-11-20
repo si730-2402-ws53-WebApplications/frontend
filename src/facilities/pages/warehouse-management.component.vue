@@ -1,9 +1,9 @@
 <script>
-import {Storeroom} from "../model/storeroom.entity.js";
-import {StoreroomService} from "../services/storeroom.service.js";
-import StoreroomList from "../components/warehouse-list.component.vue";
+import {Warehouse} from "../model/warehouse.entity.js";
+import {WarehouseService} from "../services/warehouse.service.js";
+import WarehouseList from "../components/warehouse-list.component.vue";
 
-import StoreroomCreateAndEdit from "../components/warehouse-create-and-edit.component.vue";
+import WarehouseCreateAndEdit from "../components/warehouse-create-and-edit.component.vue";
 import {ClimateSensor} from "../model/climateSensor.entity.js";
 import ClimateSensorCreateAndEdit from "../components/climateSensor-create-and-edit.vue";
 import EnviroDeviceCreateAndEdit from "../components/enviroDevice-create-and-edit.component.vue";
@@ -14,21 +14,21 @@ import {EnviroDevice} from "../model/enviroDevice.entity.js";
 
 
 export default {
-  name: "storeroom-management",
+  name: "warehouse-management",
   components: {
     EnviroDeviceCreateAndEdit,
-    ClimateSensorCreateAndEdit, StoreroomCreateAndEdit, StoreroomList
+    ClimateSensorCreateAndEdit, WarehouseCreateAndEdit, WarehouseList
   },
 
   data() {
     return {
-      storeroom: new Storeroom({}),
+      warehouse: new Warehouse({}),
       climateSensor: new ClimateSensor({}),
       enviroDevice: new EnviroDevice({}),
-      storerooms: [],
+      Warehouses: [],
       //Sensor
       sensors: [],
-      storeroomService: null,
+      WarehouseService: null,
       createAndEditDialogIsVisible: false,
       isEdit: false,
       //Sensor Dialog
@@ -43,19 +43,20 @@ export default {
     }
   },
   created() {
-    this.storeroomService = new StoreroomService();
-    this.loadStorerooms();
+    this.warehouseService = new WarehouseService();
+
+    this.loadWarehouses();
   },
   methods: {
     findIndexById(id) {
-      return this.storerooms.findIndex((category) => category.id === id);
+      return this.warehouses.findIndex((category) => category.id === id);
     },
-    loadStorerooms()
+    loadWarehouses()
     {
-      this.storeroomService.getAll().then(response => {
+      this.warehouseService.getAll().then(response => {
         console.log(response.data);
-        this.storerooms = response.data.map(storeroom => new Storeroom(storeroom));
-        console.log(this.storerooms);
+          this.warehouses = response.data.map(warehouse => new Warehouse(warehouse));
+        console.log(this.warehouses);
       }).catch(error => console.error(error));
     },
     onCancelRequested() {
@@ -111,37 +112,37 @@ export default {
 
     //Sensor methods
     createClimateSensor() {
-      console.log(this.storeroom.id);
+      console.log(this.warehouse.id);
       console.log(this.climateSensor);
-      this.climateSensor.storeroomId = toString(this.storeroom.id);
-      console.log(this.storeroom.id);
+      this.climateSensor.warehouseId = toString(this.warehouse.id);
+      console.log(this.warehouse.id);
       console.log(this.climateSensor);
-      this.storeroomService.createClimateSensor(this.storeroom.id, this.climateSensor).then(response => {
+      this.warehouseService.createClimateSensor(this.warehouse.id, this.climateSensor).then(response => {
         let climateSensor = new ClimateSensor(response.data);
         this.sensors.push(climateSensor);
-        this.loadStorerooms(); // Reload
+        this.loadWarehouses(); // Reload
 
       }).catch(error => console.error(error));
     },
 
     //Device methods
     createEnviroDevice(){
-      this.enviroDevice.storeroomId = toString(this.storeroom.id);
-      this.storeroomService.createEnviroDevice(this.storeroom.id, this.enviroDevice).then(response => {
+      this.enviroDevice.warehouseId = toString(this.warehouse.id);
+      this.warehouseService.createEnviroDevice(this.warehouse.id, this.enviroDevice).then(response => {
         let enviroDevice = new EnviroDevice(response.data);
         this.devices.push(enviroDevice);
-        this.loadStorerooms(); // Reload
+        this.loadWarehouses(); // Reload
       }).catch(error => console.error(error));
     },
 
     onSaveRequested(item) {
       console.log('onSaveRequested');
       this.submitted = true;
-      if (this.storeroom.name.trim()) {
+      if (this.warehouse.name.trim()) {
         if (item.id) {
-          this.updateStoreroom();
+          this.updateWarehouse();
         } else {
-          this.createStoreroom();
+          this.createWarehouse();
         }
         this.createAndEditDialogIsVisible = false;
         this.isEdit = false;
@@ -149,47 +150,72 @@ export default {
     },
 
     // Service client methods
-    createStoreroom() {
-      this.storeroomService.create(this.storeroom).then(response => {
-        let storeroom = new Storeroom(response.data);
-        this.storerooms.push(storeroom);
-        this.notifySuccessfulAction("Storeroom created successfully");
+    createWarehouse() {
+      const warehouseData = {
+        name: this.warehouse.name,
+        location: this.warehouse.location,
+        description: this.warehouse.description,
+        capacity: this.warehouse.capacity,
+        contact: {
+          phone: this.warehouse.contact.phone,
+          email: this.warehouse.contact.email
+        },
+        temperature: {
+          actual: this.warehouse.temperature.actual,
+          maximum: this.warehouse.temperature.maximum,
+          minimum: this.warehouse.temperature.minimum,
+          unit: this.warehouse.temperature.unit
+        },
+        humidity: {
+          actual: this.warehouse.humidity.actual,
+          maximum: this.warehouse.humidity.maximum,
+          minimum: this.warehouse.humidity.minimum,
+          unit: this.warehouse.humidity.unit
+        }
+      };
+
+      console.log('Datos a enviar:', warehouseData); // Imprime los datos que estás enviando
+
+      this.warehouseService.create(warehouseData).then(response => {
+        let warehouse = new Warehouse(response.data);
+        this.warehouses.push(warehouse);
+        this.notifySuccessfulAction("Warehouse created successfully");
+      }).catch(error => console.error('Error al crear el almacén:', error.response.data));
+    },
+    updateWarehouse() {
+      this.WarehouseService.update(this.warehouse.id, this.warehouse).then(response => {
+        console.log('updateWarehouse');
+        let index = this.findIndexById(this.warehouse.id);
+        this.warehouses[index] = new Warehouse(response.data);
+        console.log(this.warehouses);
+        this.notifySuccessfulAction("Warehouse updated successfully");
       }).catch(error => console.error(error));
     },
-    updateStoreroom() {
-      this.storeroomService.update(this.storeroom.id, this.storeroom).then(response => {
-        console.log('updateStoreroom');
-        let index = this.findIndexById(this.storeroom.id);
-        this.storerooms[index] = new Storeroom(response.data);
-        console.log(this.storerooms);
-        this.notifySuccessfulAction("Storeroom updated successfully");
-      }).catch(error => console.error(error));
-    },
-    deleteStoreroom(id) {
-      this.storeroomService.delete(id).then(() => {
+    deleteWarehouse(id) {
+      this.warehouseService.delete(id).then(() => {
         let index = this.findIndexById(id);
-        this.storerooms.splice(index, 1);
-        this.notifySuccessfulAction("Storeroom deleted successfully");
-        this.loadStorerooms(); // Recargar la lista de depósitos
+        this.warehouses.splice(index, 1);
+        this.notifySuccessfulAction("Warehouse deleted successfully");
+        this.loadWarehouses(); // Recargar la lista de depósitos
       }).catch(error => console.error(error));
     },
 
     onNewItem() {
-      this.storeroom = new Storeroom({});
+      this.warehouse = new Warehouse({});
       this.isEdit = false;
       this.createAndEditDialogIsVisible = true;
       console.log(this.createAndEditDialogIsVisible);
     },
 
-    onEditRequested(storeroom) {
-      this.storeroom = storeroom;
+    onEditRequested(warehouse) {
+      this.warehouse = warehouse;
       this.isEdit = true;
       this.createAndEditDialogIsVisible = true;
     },
 
     //Sensor methods
-    onEditRequestedSensor(storeroom, sensor, type) {
-      this.storeroom = storeroom;
+    onEditRequestedSensor(warehouse, sensor, type) {
+      this.warehouse = warehouse;
       this.climateSensor = sensor;
       this.climateSensor.type=type;
       this.isEditSensor = true;
@@ -197,8 +223,8 @@ export default {
     },
 
     //Device methods
-    onEditRequestedDevice(storeroom, device, type, unit) {
-      this.storeroom = storeroom;
+    onEditRequestedDevice(warehouse, device, type, unit) {
+      this.warehouse = warehouse;
       this.enviroDevice = device;
       this.enviroDevice.type=type;
       this.enviroDevice.unit=unit;
@@ -209,7 +235,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.loadStorerooms();
+      vm.loadWarehouses();
     });
   }
 }
@@ -236,9 +262,9 @@ export default {
     </template>
   </pv-toolbar>
 
-  <storeroom-create-and-edit
+  <warehouse-create-and-edit
       :edit="isEdit"
-      :item="storeroom"
+      :item="warehouse"
       :visible="createAndEditDialogIsVisible"
       v-on:cancel-requested="onCancelRequested"
       v-on:save-requested="onSaveRequested($event)"/>
@@ -258,7 +284,7 @@ export default {
       v-on:save-requested="onSaveRequestedDevice($event)"/>
 
   <div class="container">
-    <storeroom-list :storerooms="storerooms" :deleteStoreroom="deleteStoreroom" :onEditRequested="onEditRequested"
+    <warehouse-list :warehouses="warehouses" :deleteWarehouses="deleteWarehouse" :onEditRequested="onEditRequested"
                     :onEditRequestedSensor="onEditRequestedSensor"
                     :onEditRequestedDevice="onEditRequestedDevice"/>
   </div>

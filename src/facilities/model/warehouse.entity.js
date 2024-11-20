@@ -2,7 +2,7 @@ import {Contact} from "./contact.entity.js";
 import {Temperature} from "./temperature.entity.js";
 import {Humidity} from "./humidity.entity.js";
 
-export class Storeroom{
+export class Warehouse{
     constructor(
         {
             id=0,
