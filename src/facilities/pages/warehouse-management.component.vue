@@ -2,22 +2,19 @@
 import {Warehouse} from "../model/warehouse.entity.js";
 import {WarehouseService} from "../services/warehouse.service.js";
 import WarehouseList from "../components/warehouse-list.component.vue";
-
 import WarehouseCreateAndEdit from "../components/warehouse-create-and-edit.component.vue";
 import {ClimateSensor} from "../model/climateSensor.entity.js";
 import ClimateSensorCreateAndEdit from "../components/climateSensor-create-and-edit.vue";
 import EnviroDeviceCreateAndEdit from "../components/enviroDevice-create-and-edit.component.vue";
 import {EnviroDevice} from "../model/enviroDevice.entity.js";
 
-
-
-
-
 export default {
   name: "warehouse-management",
   components: {
     EnviroDeviceCreateAndEdit,
-    ClimateSensorCreateAndEdit, WarehouseCreateAndEdit, WarehouseList
+    ClimateSensorCreateAndEdit,
+    WarehouseCreateAndEdit,
+    WarehouseList
   },
 
   data() {
@@ -25,38 +22,29 @@ export default {
       warehouse: new Warehouse({}),
       climateSensor: new ClimateSensor({}),
       enviroDevice: new EnviroDevice({}),
-      Warehouses: [],
-      //Sensor
+      warehouses: [],
       sensors: [],
-      WarehouseService: null,
+      warehouseService: null,
       createAndEditDialogIsVisible: false,
       isEdit: false,
-      //Sensor Dialog
       isEditSensor: false,
       createAndEditDialogIsVisibleSensor: false,
-
-      //Device Dialog
       devices: [],
       createAndEditDialogIsVisibleDevice: false,
       isEditDevice: false,
-
     }
   },
   created() {
     this.warehouseService = new WarehouseService();
-
     this.loadWarehouses();
   },
   methods: {
     findIndexById(id) {
       return this.warehouses.findIndex((category) => category.id === id);
     },
-    loadWarehouses()
-    {
+    loadWarehouses() {
       this.warehouseService.getAll().then(response => {
-        console.log(response.data);
-          this.warehouses = response.data.map(warehouse => new Warehouse(warehouse));
-        console.log(this.warehouses);
+        this.warehouses = response.data.map(warehouse => new Warehouse(warehouse));
       }).catch(error => console.error(error));
     },
     onCancelRequested() {
@@ -64,23 +52,17 @@ export default {
       this.submitted = false;
       this.isEdit = false;
     },
-    //Sensor methods
     onCancelRequestedSensor() {
       this.createAndEditDialogIsVisibleSensor = false;
       this.submittedSensor = false;
       this.isEditSensor = false;
     },
-
-    //Device methods
     onCancelRequestedDevice() {
       this.createAndEditDialogIsVisibleDevice = false;
       this.submittedDevice = false;
       this.isEditDevice = false;
     },
-
-    //Sensor methods
     onSaveRequestedSensor(item) {
-      console.log('onSaveRequestedSensor');
       this.submittedSensor = true;
       if (item.name.trim()) {
         this.climateSensor = item;
@@ -93,10 +75,7 @@ export default {
         this.isEditSensor = false;
       }
     },
-
-    //Device methods
     onSaveRequestedDevice(item) {
-      console.log('onSaveRequestedDevice');
       this.submittedDevice = true;
       if (item.name.trim()) {
         this.enviroDevice = item;
@@ -109,34 +88,23 @@ export default {
         this.isEditDevice = false;
       }
     },
-
-    //Sensor methods
     createClimateSensor() {
-      console.log(this.warehouse.id);
-      console.log(this.climateSensor);
-      this.climateSensor.warehouseId = toString(this.warehouse.id);
-      console.log(this.warehouse.id);
-      console.log(this.climateSensor);
+      this.climateSensor.warehouseId = this.warehouse.id.toString();
       this.warehouseService.createClimateSensor(this.warehouse.id, this.climateSensor).then(response => {
         let climateSensor = new ClimateSensor(response.data);
         this.sensors.push(climateSensor);
-        this.loadWarehouses(); // Reload
-
+        this.loadWarehouses();
       }).catch(error => console.error(error));
     },
-
-    //Device methods
-    createEnviroDevice(){
-      this.enviroDevice.warehouseId = toString(this.warehouse.id);
+    createEnviroDevice() {
+      this.enviroDevice.warehouseId = this.warehouse.id.toString();
       this.warehouseService.createEnviroDevice(this.warehouse.id, this.enviroDevice).then(response => {
         let enviroDevice = new EnviroDevice(response.data);
         this.devices.push(enviroDevice);
-        this.loadWarehouses(); // Reload
+        this.loadWarehouses();
       }).catch(error => console.error(error));
     },
-
     onSaveRequested(item) {
-      console.log('onSaveRequested');
       this.submitted = true;
       if (this.warehouse.name.trim()) {
         if (item.id) {
@@ -148,33 +116,23 @@ export default {
         this.isEdit = false;
       }
     },
-
-    // Service client methods
     createWarehouse() {
       const warehouseData = {
         name: this.warehouse.name,
         location: this.warehouse.location,
         description: this.warehouse.description,
         capacity: this.warehouse.capacity,
-        contact: {
-          phone: this.warehouse.contact.phone,
-          email: this.warehouse.contact.email
-        },
-        temperature: {
-          actual: this.warehouse.temperature.actual,
-          maximum: this.warehouse.temperature.maximum,
-          minimum: this.warehouse.temperature.minimum,
-          unit: this.warehouse.temperature.unit
-        },
-        humidity: {
-          actual: this.warehouse.humidity.actual,
-          maximum: this.warehouse.humidity.maximum,
-          minimum: this.warehouse.humidity.minimum,
-          unit: this.warehouse.humidity.unit
-        }
+        phone: this.warehouse.phone,
+        email: this.warehouse.email,
+        actualTemperature: this.warehouse.actualTemperature,
+        maximumTemperature: this.warehouse.maximumTemperature,
+        minimumTemperature: this.warehouse.minimumTemperature,
+        temperatureUnit: this.warehouse.temperatureUnit,
+        actualHumidity: this.warehouse.actualHumidity,
+        maximumHumidity: this.warehouse.maximumHumidity,
+        minimumHumidity: this.warehouse.minimumHumidity,
+        humidityUnit: this.warehouse.humidityUnit,
       };
-
-      console.log('Datos a enviar:', warehouseData); // Imprime los datos que estás enviando
 
       this.warehouseService.create(warehouseData).then(response => {
         let warehouse = new Warehouse(response.data);
@@ -183,11 +141,9 @@ export default {
       }).catch(error => console.error('Error al crear el almacén:', error.response.data));
     },
     updateWarehouse() {
-      this.WarehouseService.update(this.warehouse.id, this.warehouse).then(response => {
-        console.log('updateWarehouse');
+      this.warehouseService.update(this.warehouse.id, this.warehouse).then(response => {
         let index = this.findIndexById(this.warehouse.id);
         this.warehouses[index] = new Warehouse(response.data);
-        console.log(this.warehouses);
         this.notifySuccessfulAction("Warehouse updated successfully");
       }).catch(error => console.error(error));
     },
@@ -196,42 +152,34 @@ export default {
         let index = this.findIndexById(id);
         this.warehouses.splice(index, 1);
         this.notifySuccessfulAction("Warehouse deleted successfully");
-        this.loadWarehouses(); // Recargar la lista de depósitos
+        this.loadWarehouses();
       }).catch(error => console.error(error));
     },
-
     onNewItem() {
       this.warehouse = new Warehouse({});
       this.isEdit = false;
       this.createAndEditDialogIsVisible = true;
-      console.log(this.createAndEditDialogIsVisible);
     },
-
     onEditRequested(warehouse) {
       this.warehouse = warehouse;
       this.isEdit = true;
       this.createAndEditDialogIsVisible = true;
     },
-
-    //Sensor methods
     onEditRequestedSensor(warehouse, sensor, type) {
       this.warehouse = warehouse;
       this.climateSensor = sensor;
-      this.climateSensor.type=type;
+      this.climateSensor.type = type;
       this.isEditSensor = true;
       this.createAndEditDialogIsVisibleSensor = true;
     },
-
-    //Device methods
     onEditRequestedDevice(warehouse, device, type, unit) {
       this.warehouse = warehouse;
       this.enviroDevice = device;
-      this.enviroDevice.type=type;
-      this.enviroDevice.unit=unit;
+      this.enviroDevice.type = type;
+      this.enviroDevice.unit = unit;
       this.isEditDevice = true;
       this.createAndEditDialogIsVisibleDevice = true;
     }
-
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -239,12 +187,6 @@ export default {
     });
   }
 }
-
-
-
-
-
-
 </script>
 
 <template>
@@ -284,12 +226,14 @@ export default {
       v-on:save-requested="onSaveRequestedDevice($event)"/>
 
   <div class="container">
-    <warehouse-list :warehouses="warehouses" :deleteWarehouses="deleteWarehouse" :onEditRequested="onEditRequested"
-                    :onEditRequestedSensor="onEditRequestedSensor"
-                    :onEditRequestedDevice="onEditRequestedDevice"/>
+    <warehouse-list
+        :warehouses="warehouses"
+        :deleteWarehouse="deleteWarehouse"
+        :onEditRequested="onEditRequested"
+        :onEditRequestedSensor="onEditRequestedSensor"
+        :onEditRequestedDevice="onEditRequestedDevice"/>
   </div>
 </template>
-
 <style scoped>
 .container {
   max-width: 1200px;

@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
-export class StoreroomService {
-    resourceEndpoint = '/storerooms';
+export class WarehouseService {
+    resourceEndpoint = '/api/v1/warehouses';
 
     getAll() {
         return http.get(this.resourceEndpoint);

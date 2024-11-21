@@ -93,6 +93,7 @@ export default {
 
 <template>
   <pv-card class="examiner-card">
+
     <template #header>
       <div class="card-header">
         <h2>{{ warehouse.name }}</h2>
@@ -103,7 +104,7 @@ export default {
     <template #content>
       <p>{{ warehouse.description }}</p>
       <p>{{ warehouse.capacity }}</p>
-      <p>Temperatura de {{ warehouse.temperature.minimum }}°C a {{ warehouse.temperature.maximum }}°C</p>
+      <p>Temperatura de {{ warehouse.minimum }}°C a {{ warehouse.temperature.maximum }}°C</p>
       <p>Humedad de {{ warehouse.humidity.minimum }}% a {{ warehouse.humidity.maximum }}%</p>
 
     </template>

@@ -2,7 +2,7 @@ import { Contact } from './contact.entity';
 import { Temperature } from './temperature.entity';
 import { Humidity } from './humidity.entity';
 
-export class Storeroom{
+export class Warehouse{
     constructor(
         {
             id=0,
