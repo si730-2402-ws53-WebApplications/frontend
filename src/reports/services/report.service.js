@@ -1,30 +1,33 @@
 import http from "../../shared/services/http-common.js";
 
 class ReportService {
+    reportEndpoint = '/reports';
+    fabricsEndpoint = 'api/v1/fabrics';
+    enviroDevicesEndpoint = 'api/v1/enviro-devices';
+    climateSensorsEndpoint = 'api/v1/climate-sensors';
+
     getFabrics() {
-        return http.get("/fabrics");
+        return http.get(this.fabricsEndpoint);
     }
 
     getEnviroDevices() {
-        return http.get("/enviroDevices");
+        return http.get(this.enviroDevicesEndpoint);
     }
 
     getClimateSensors() {
-        return http.get("/climateSensors");
+        return http.get(this.climateSensorsEndpoint);
     }
 
-    saveReport(data) {
-        return http.post("/saveReport", data);
+    saveReport(report) {
+        return http.post(this.reportEndpoint, report);
     }
 
-    // Método para obtener todos los reportes guardados
     getReports() {
-        return http.get("/saveReport");
+        return http.get(this.reportEndpoint);
     }
 
-    // Método para obtener un reporte específico por su ID
     getReportById(reportId) {
-        return http.get(`/saveReport/${reportId}`);
+        return http.get(`${this.reportEndpoint}/${reportId}`);
     }
 }
 

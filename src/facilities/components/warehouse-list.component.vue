@@ -1,12 +1,12 @@
 <script>
-import StoreroomItemComponent from "./warehouse-item.component.vue";
+import WarehouseItemComponent from "./warehouse-item.component.vue";
 
 export default {
-  name: "storeroom-list",
-  components: { StoreroomItemComponent},
+  name: "warehouse-list",
+  components: { WarehouseItemComponent},
   props:{
-    storerooms: {type: Array, required: true},
-    deleteStoreroom: {type: Function, required: true},
+    warehouses: {type: Array, required: true},
+    deleteWarehouse: {type: Function, required: true},
     onEditRequested: { type: Function, required: true },
     onEditRequestedSensor: { type: Function, required: true },
     onEditRequestedDevice: { type: Function, required: true }
@@ -23,8 +23,8 @@ export default {
 <template>
   <div>
     <div class="card-grid">
-      <div v-for="storeroom in storerooms" :key="storeroom.id">
-        <storeroom-item-component :storeroom="storeroom" :deleteStoreroom="deleteStoreroom" :onEditRequested="onEditRequested" :onEditRequestedSensor="onEditRequestedSensor" :onEditRequestedDevice="onEditRequestedDevice"/>
+      <div v-for="warehouse in warehouses" :key="warehouse.id">
+        <warehouse-item-component :warehouse="warehouse" :deleteWarehouse="deleteWarehouse" :onEditRequested="onEditRequested" :onEditRequestedSensor="onEditRequestedSensor" :onEditRequestedDevice="onEditRequestedDevice"/>
 
       </div>
     </div>

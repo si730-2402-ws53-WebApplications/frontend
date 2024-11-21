@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js"
 
-export class StoreroomService {
-    resourceEndpoint = '/storerooms';
+export class WarehouseService {
+    resourceEndpoint = '/api/v1/warehouses';
 
     getAll() {
         return http.get(this.resourceEndpoint);
@@ -11,12 +11,12 @@ export class StoreroomService {
         return http.get(`${this.resourceEndpoint}/${id}`);
     }
 
-    create(storeroomResource) {
-        return http.post(this.resourceEndpoint, storeroomResource);
+    create(warehouseResource) {
+        return http.post(this.resourceEndpoint, warehouseResource);
     }
 
-    update(id, storeroomResource) {
-        return http.put(`${this.resourceEndpoint}/${id}`, storeroomResource);
+    update(id, warehouseResource) {
+        return http.put(`${this.resourceEndpoint}/${id}`, warehouseResource);
     }
 
     delete(id) {

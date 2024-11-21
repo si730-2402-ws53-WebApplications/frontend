@@ -26,13 +26,7 @@ export default {
       @save-requested="onSaveRequested">
     <template #content>
       <div class="p-fluid">
-        <div class="field mt-5">
-          <pv-float-label>
-            <label for="code">{{$t('inventory.code')}}</label>
-            <pv-input-text id="code" v-model="item.code"
-                           :class="{'p-invalid': submitted && !item.code }"/>
-          </pv-float-label>
-        </div>
+
         <div class="field mt-5">
           <pv-float-label>
             <label for="name">{{$t('inventory.name')}}</label>
@@ -42,9 +36,9 @@ export default {
         </div>
         <div class="field mt-5">
           <pv-float-label>
-            <label for="storeroomId">{{$t('inventory.storeroom')}}</label>
-            <pv-input-text id="storeroomId" v-model="item.storeroomId"
-                           :class="{'p-invalid': submitted && !item.storeroomId }"/>
+            <label for="warehouseId">{{$t('inventory.warehouse')}}</label>
+            <pv-input-text id="warehouseId" v-model="item.warehouseId"
+                           :class="{'p-invalid': submitted && !item.warehouseId }"/>
           </pv-float-label>
         </div>
         <div class="field mt-5">
