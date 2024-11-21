@@ -11,14 +11,12 @@ export class WarehouseService {
         return http.get(`${this.resourceEndpoint}/${id}`);
     }
 
-    create(storeroomResource) {
-        console.log('Datos enviados:', storeroomResource); // Agrega este console.log
-        return http.post(this.resourceEndpoint, storeroomResource);
-
+    create(warehouseResource) {
+        return http.post(this.resourceEndpoint, warehouseResource);
     }
 
-    update(id, storeroomResource) {
-        return http.put(`${this.resourceEndpoint}/${id}`, storeroomResource);
+    update(id, warehouseResource) {
+        return http.put(`${this.resourceEndpoint}/${id}`, warehouseResource);
     }
 
     delete(id) {

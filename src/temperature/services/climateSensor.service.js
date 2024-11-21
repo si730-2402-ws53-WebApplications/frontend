@@ -12,6 +12,7 @@ export class ClimateSensorService {
     }
 
     create(climateSensorResource) {
+        console.log('Datos enviados al crear Climate Sensor:', climateSensorResource);
         return http.post(this.resourceEndpoint, climateSensorResource);
     }
 
