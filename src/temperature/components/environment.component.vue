@@ -1,6 +1,6 @@
 <script>
-import {Warehouse} from '../model/warehouse.entity.js';
-import {WarehouseService} from "../services/warehouse.service.js";
+import {Warehouse} from "../../facilities/model/warehouse.entity.js";
+import {WarehouseService} from "../../facilities/services/warehouse.service.js";
 
 import {ClimateSensor} from "../model/climateSensor.entity.js";
 import {ClimateSensorService} from "../services/climateSensor.service.js";
@@ -46,8 +46,25 @@ export default {
           });
     },
     setWarehouseTemperature(heater, warehouse) {
+      console.log(warehouse.id);
       warehouse.temperature.actual = heater.value;
-      this.warehouseService.update(warehouse.id, warehouse)
+      const _warehouse = {
+          name : warehouse.name,
+          location : warehouse.location,
+        description : warehouse.description,
+          capacity : warehouse.capacity,
+          phone : warehouse.contact.phone,
+          email : warehouse.contact.email,
+        actualTemperature : warehouse.temperature.actual,
+        maximumTemperature : warehouse.temperature.maximum,
+        minimumTemperature : warehouse.temperature.minimum,
+        temperatureUnit : warehouse.temperature.unit,
+        actualHumidity : warehouse.humidity.actual,
+        maximumHumidity : warehouse.humidity.maximum,
+        minimumHumidity : warehouse.humidity.minimum,
+        humidityUnit : warehouse.humidity.unit
+      }
+      this.warehouseService.update(warehouse.id, _warehouse)
           .then(response => {
             console.log('Warehouse updated:', response.data);
           })
@@ -57,7 +74,25 @@ export default {
     },
     setWarehouseHumidity(humidifier, warehouse) {
       warehouse.humidity.actual = humidifier.value;
-      this.warehouseService.update(warehouse.id, warehouse)
+
+      const _warehouse = {
+        name : warehouse.name,
+        location : warehouse.location,
+        description : warehouse.description,
+        capacity : warehouse.capacity,
+        phone : warehouse.contact.phone,
+        email : warehouse.contact.email,
+        actualTemperature : warehouse.temperature.actual,
+        maximumTemperature : warehouse.temperature.maximum,
+        minimumTemperature : warehouse.temperature.minimum,
+        temperatureUnit : warehouse.temperature.unit,
+        actualHumidity : warehouse.humidity.actual,
+        maximumHumidity : warehouse.humidity.maximum,
+        minimumHumidity : warehouse.humidity.minimum,
+        humidityUnit : warehouse.humidity.unit
+      }
+
+      this.warehouseService.update(warehouse.id, _warehouse)
           .then(response => {
             console.log('Warehouse updated:', response.data);
           })
@@ -84,8 +119,9 @@ export default {
     this.climateSensorService.getAll()
         .then(response => {
           const sensors = response.data.map(sensor => new ClimateSensor(sensor));
-          this.thermometers = sensors.filter(sensor => sensor.type === 'Thermometer');
-          this.hygrometers = sensors.filter(sensor => sensor.type === 'Hygrometer');
+          this.thermometers = sensors.filter(sensor => sensor.type === 0); //0 = termometro
+          this.hygrometers = sensors.filter(sensor => sensor.type === 1); //1 = higrometro
+          console.log(this.thermometers);
         })
         .catch(error => console.error(error));
 
@@ -93,8 +129,9 @@ export default {
     this.enviroDeviceService.getAll()
         .then(response => {
           const devices = response.data.map(device => new EnviroDevice(device));
-          this.heaters = devices.filter(device => device.type === 'Heater');
-          this.humidifiers = devices.filter(device => device.type === 'Humidifier');
+          this.heaters = devices.filter(device => device.type === 0); //heater
+          this.humidifiers = devices.filter(device => device.type === 1); //humidifier
+          console.log(this.heaters);
         })
         .catch(error => console.error(error));
   }
@@ -169,6 +206,7 @@ export default {
         <!-- Calentadores -->
         <div v-for="heater in heaters" :key="heater.id">
           <div class="card" v-if="parseInt(heater.warehouseId) === warehouse.id">
+            <span setHeaterTemperature(heater, warehouse.temperature.actual)></span>
             <h3>{{ heater.name }}</h3>
             <div class="humidity-card">
               <div class="humidity-display">

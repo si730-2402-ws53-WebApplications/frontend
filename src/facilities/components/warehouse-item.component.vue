@@ -43,7 +43,7 @@ export default {
       this.warehouseService.getClimateSensors(this.warehouse.id).then(response => {
         console.log(response.data);
         this.sensors = response.data
-            .filter(sensor => sensor.type === "Thermometer")
+            .filter(sensor => sensor.type === 0) //thermometer
             .map(thermometer => new ClimateSensor(thermometer));
         console.log(this.thermometers);
 
@@ -52,7 +52,7 @@ export default {
         }       console.log(this.thermometer);
 
         this.sensors = response.data
-            .filter(sensor => sensor.type === "Hygrometer")
+            .filter(sensor => sensor.type === 1) //hygrometer
             .map(thermometer => new ClimateSensor(thermometer));
         console.log(this.thermometers);
 
