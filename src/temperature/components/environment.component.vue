@@ -206,7 +206,6 @@ export default {
         <!-- Calentadores -->
         <div v-for="heater in heaters" :key="heater.id">
           <div class="card" v-if="parseInt(heater.warehouseId) === warehouse.id">
-            <span setHeaterTemperature(heater, warehouse.temperature.actual)></span>
             <h3>{{ heater.name }}</h3>
             <div class="humidity-card">
               <div class="humidity-display">

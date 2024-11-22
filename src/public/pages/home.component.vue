@@ -6,8 +6,8 @@ export default {
 
 <template>
   <div class="w-full flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-blue-500">
-    <h1 class="text-8xl font-bold text-white animate-fade-in">Bienvenido a Telasecuere</h1>
-    <p class="text-4xl text-white mt-4 animate-slide-up"> To WeaveGuard</p>
+    <h1 class="text-8xl font-bold text-white animate-fade-in">Welcome to Telasecuere</h1>
+    <p class="text-4xl text-white mt-4 animate-slide-up"> by WeaveGuard</p>
   </div>
 </template>
 

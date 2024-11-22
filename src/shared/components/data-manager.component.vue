@@ -70,7 +70,6 @@ export default {
       <pv-button class="mr-2" icon="pi pi-plus" :label="$t('inventory.add')" severity="success" @click="newItem"/>
       <pv-button :disabled="!selectedItems || !selectedItems.length" icon="pi pi-trash" :label="$t('inventory.delete')"
                  severity="danger" @click="confirmDeleteSelected"/>
-      <pv-button class="mr-2" id="createCategory" icon="pi pi-plus" label="Add Category" severity="success" />
 
     </template>
     <template #end>
