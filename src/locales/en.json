@@ -9,7 +9,8 @@
     "warehouse": "Warehouse",
     "category": "Category",
     "manage": "Manage Fabrics",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "viewCategories": "View Categories"
   },
 
   "report": {

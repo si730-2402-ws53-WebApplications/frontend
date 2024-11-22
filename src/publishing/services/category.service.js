@@ -26,4 +26,8 @@ export class FabricService {
     findByCode(code) { // Cambiado a findByCode
         return http.get(`${this.resourceEndpoint}?code=${code}`); // Cambiado a code
     }
+
+    getCategories() {
+        return http.get(`${this.resourceEndpoint}/categories`);
+    }
 }

@@ -9,7 +9,8 @@
     "warehouse": "Almacén",
     "category": "Categoria",
     "manage": "Gestionar Telas",
-    "quantity": "Cantidad"
+    "quantity": "Cantidad",
+    "viewCategories": "Ver Categorias"
   },
 
   "report": {

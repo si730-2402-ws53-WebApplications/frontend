@@ -42,7 +42,7 @@ export default {
 
       const ctx = document.getElementById("lineChart").getContext("2d");
       this.chart = new Chart(ctx, {
-        type: "line",
+        type: "bar",
         data: {
           labels: ["Fabrics", "Enviro Devices", "Climate Sensors"],
           datasets: [

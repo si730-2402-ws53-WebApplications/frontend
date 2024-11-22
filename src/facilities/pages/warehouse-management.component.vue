@@ -257,7 +257,7 @@ h1 {
 }
 
 h1:hover {
-  color: #00e676; /* Neon green color on hover */
+  color: #8afceb; /* Neon green color on hover */
 }
 
 p {
@@ -268,7 +268,7 @@ p {
 }
 
 p:hover {
-  color: #00e676; /* Neon green color on hover */
+  color: #689eff; /* Neon green color on hover */
 }
 
 .pv-toolbar {

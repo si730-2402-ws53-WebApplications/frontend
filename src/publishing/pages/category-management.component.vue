@@ -16,7 +16,8 @@ export default {
       fabricService: null, // Cambiado a fabricService
       createAndEditDialogIsVisible: false,
       isEdit: false,
-      submitted: false
+      submitted: false,
+      categories: []
     };
   },
   methods: {
@@ -98,6 +99,14 @@ export default {
             .catch(error => console.error(error));
       });
       this.notifySuccessfulAction("Selected Fabrics deleted successfully");
+    },
+    onViewCategoriesRequested() {
+      this.fabricService.getCategories()
+          .then(response => {
+            this.categories = response.data;
+            this.showCategoriesCard = true;
+          })
+          .catch(error => console.error(error));
     }
   },
   created() {
@@ -121,6 +130,7 @@ export default {
         v-on:edit-item-requested="onEditItem($event)"
         v-on:delete-item-requested="onDeleteItem($event)"
         v-on:delete-selected-items-requested="onDeleteSelectedItems($event)"
+        v-on:view-categories-requested="onViewCategoriesRequested"
         class="data-container"
     >
       <template #custom-columns>

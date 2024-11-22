@@ -23,6 +23,9 @@ export default {
         newItem() {
           this.$emit('new-item-requested');
         },
+        viewCategories() {
+          this.$emit('view-categories-requested');
+        },
         confirmDeleteSelected() {
           this.$confirm.require( {
             message:      `Are you sure you want to delete the selected ${this.title.plural}?`,
@@ -70,7 +73,7 @@ export default {
       <pv-button class="mr-2" icon="pi pi-plus" :label="$t('inventory.add')" severity="success" @click="newItem"/>
       <pv-button :disabled="!selectedItems || !selectedItems.length" icon="pi pi-trash" :label="$t('inventory.delete')"
                  severity="danger" @click="confirmDeleteSelected"/>
-
+      <pv-button class="ml-2" icon="pi pi-eye" :label="$t('inventory.viewCategories')" severity="info" @click="viewCategories"/>
     </template>
     <template #end>
       <pv-button icon="pi pi-download" :label="$t('inventory.export')" severity="help" @click="exportToCsv"/>
