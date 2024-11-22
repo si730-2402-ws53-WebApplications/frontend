@@ -1,10 +1,15 @@
-export class Fabric {
-    constructor({ id = '',  name = '', warehouseId = '', categoryId = '', quantity = 0 }) {
-        this.id = id;
+import { Suggestion } from './suggestion.entity.js';
+
+export class Category {
+    constructor(
+        {
+            categoryId = 0,
+            name = '',
+            suggestions = []
+        }
+    ) {
+        this.id = categoryId;
         this.name = name;
-        this.warehouseId = warehouseId;
-        this.categoryId = categoryId;
-        this.quantity = quantity;
+        this.suggestions = suggestions.map(suggestion => new Suggestion(suggestion));
     }
 }
-

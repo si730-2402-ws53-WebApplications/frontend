@@ -1,8 +1,11 @@
 <script>
-import { Fabric } from "../model/category.entity.js"; // Cambiado a Fabric
-import { FabricService } from "../services/category.service.js"; // Cambiado a FabricService
+import { Fabric } from "../model/fabric.entity.js"; // Cambiado a Fabric
+import { FabricService } from "../services/fabric.service.js"; // Cambiado a FabricService
 import DataManager from "../../shared/components/data-manager.component.vue";
 import FabricCreateAndEditDialog from "../components/category-create-and-edit.component.vue"; // Cambiado a FabricCreateAndEditDialog
+
+import {Category} from "../model/category.entity.js";
+import {CategoryService} from "../services/category.service.js";
 
 export default {
   name: "fabric-management", // Cambiado a fabric-management
@@ -14,10 +17,12 @@ export default {
       fabric: new Fabric({}), // Cambiado a Fabric
       selectedFabrics: [], // Cambiado a fabrics
       fabricService: null, // Cambiado a fabricService
+      categoryService: null, // Cambiado a fabricService
       createAndEditDialogIsVisible: false,
       isEdit: false,
       submitted: false,
-      categories: []
+      categories: [],
+      category: new Category({}),
     };
   },
   methods: {
@@ -107,7 +112,27 @@ export default {
             this.showCategoriesCard = true;
           })
           .catch(error => console.error(error));
+    },
+
+    getAllCategories() {
+      this.categoryService.getAll()
+          .then(response => {
+            this.categories = response.data.map(category => new Category(category));
+          })
+          .catch(error => console.error(error));
     }
+
+    ,
+
+    deleteCategory(category) {
+      this.categoryService.delete(category.id)
+          .then(() => {
+            this.categories = this.categories.filter(c => c.id !== category.id);
+            this.notifySuccessfulAction("Category deleted successfully");
+          })
+          .catch(error => console.error(error));
+    },
+
   },
   created() {
     this.fabricService = new FabricService(); // Cambiado a FabricService
@@ -116,6 +141,8 @@ export default {
           this.fabrics = response.data.map(fabric => new Fabric(fabric)); // Cargar las telas desde el servidor
         })
         .catch(error => console.error(error));
+    this.categoryService = new CategoryService();
+    this.getAllCategories();
   }
 };
 </script>
@@ -151,10 +178,45 @@ export default {
         class="dialog"
     />
   </div>
+  <div class="category-management">
+    <h3 class="title">Categories</h3>
+    <div class="categories-container">
+      <div v-for="category in categories" :key="category.id" class="category-card">
+        <h4>{{ category.name }}</h4>
+        <ul>
+          <li v-for="fabric in fabrics.filter(fabric => fabric.categoryId === category.id)" :key="fabric.id">
+            {{ fabric.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 /* Variables para diseño moderno */
+.categories-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin: auto;
+  max-width: 40rem;
+}
+
+li{
+  list-style: none;
+}
+
+.category-card {
+  background-color: lightgray;
+  color: black;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+}
+
 :root {
   --primary-color: #1f2937; /* Gris oscuro */
   --secondary-color: #4b5563; /* Gris medio */
@@ -232,5 +294,7 @@ button:focus {
   .title {
     font-size: 1.5rem;
   }
+
+
 }
 </style>
